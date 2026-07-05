@@ -6,6 +6,7 @@ import httpStatus from "http-status";
 import { prisma } from "./lib/prisma";
 import bcrypt from "bcrypt";
 import { Role } from "../generated/prisma/enums";
+import { userRouter } from "./modules/user/user.route";
 
 const app: Application = express();
 
@@ -24,28 +25,6 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 
-app.post("/api/auth/register", async (req: Request, res: Response) => {
-    const { name, email, password, role } = req.body;
-
-
-    const isUserExists = await prisma.user.findUnique({ where: { email } });
-
-    if (isUserExists) {
-        return res.status(httpStatus.CONFLICT).json({ message: "User already exists" });
-    }
-
-    const hashedPassword = await bcrypt.hash(password, Number(config.bcrypt_salt_rounds));
-
-    const createdUser = await prisma.user.create({
-        data: {
-            name,
-            email,
-            password: hashedPassword,
-            role
-        },
-    })
-
-    res.status(httpStatus.OK).json({ message: "User registered successfully", user: createdUser });
-});
+app.use("/api/auth", userRouter);
 
 export default app;
