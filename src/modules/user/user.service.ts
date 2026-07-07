@@ -16,12 +16,8 @@ const createUser = async (payload: CreateUserRequest) => {
     const isUserExists = await prisma.user.findUnique(
         {
             where: {
-
-                email
+                email,
             },
-            omit: {
-                password: true
-            }
         }
 
     );
@@ -38,6 +34,9 @@ const createUser = async (payload: CreateUserRequest) => {
             email,
             password: hashedPassword,
             role
+        },
+        omit: {
+            password: true,
         },
     })
 
