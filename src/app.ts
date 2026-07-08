@@ -13,6 +13,7 @@ import { rentalRouter } from "./modules/rental/rental.route";
 import { propertyRouter } from "./modules/property/property.route";
 import { adminRouter } from "./modules/admin/admin.route";
 import { paymentRouter } from "./modules/payment/payment.route";
+import { reviewRouter } from "./modules/review/review.route";
 
 import { notFound } from "./middlewares/notFound";
 import { globalErrorHandler } from "./middlewares/globalErrorHandler";
@@ -50,6 +51,8 @@ app.use("/api/categories", categoriesRouter);
 app.use("/api/admin", adminRouter);
 
 app.use("/api/payments", paymentRouter);
+
+app.use("/api/reviews", reviewRouter);
 
 app.use(notFound);
 app.use(globalErrorHandler);
