@@ -8,6 +8,7 @@ import bcrypt from "bcrypt";
 import { Role } from "../generated/prisma/enums";
 import { userRouter } from "./modules/user/user.route";
 import { authRouter } from "./modules/auth/auth.route";
+import { landlordRouter } from "./modules/landlord/landlord.route";
 
 const app: Application = express();
 
@@ -29,6 +30,8 @@ app.get("/", (req: Request, res: Response) => {
 app.use("/api/auth", userRouter);
 
 app.use("/api/auth", authRouter);
+
+app.use("/api/landlord", landlordRouter);
 
 
 
