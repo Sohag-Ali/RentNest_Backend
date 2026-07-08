@@ -66,7 +66,7 @@ const getRentalRequestById = catchAsync(async (req: Request, res: Response) => {
             success: false,
             statusCode: httpStatus.BAD_REQUEST,
             message: "Invalid request",
-            error: "Rental request ID is required",
+            error: "Rental request ID is required ! ",
         });
     }
 

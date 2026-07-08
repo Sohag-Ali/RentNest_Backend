@@ -124,7 +124,7 @@ const createRentalRequestIntoDB = async (tenantId: string, payload: CreateRental
 };
 
 const getMyRentalRequestsFromDB = async (tenantId: string) => {
-    return prisma.rentalRequest.findMany({
+    const rentalRequests = await prisma.rentalRequest.findMany({
         where: {
             tenantId,
         },
@@ -133,6 +133,7 @@ const getMyRentalRequestsFromDB = async (tenantId: string) => {
         },
         select: rentalRequestSelect,
     });
+    return rentalRequests;
 };
 
 const getRentalRequestByIdFromDB = async (tenantId: string, rentalRequestId: string) => {
