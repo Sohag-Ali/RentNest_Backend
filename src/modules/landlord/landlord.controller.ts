@@ -94,10 +94,11 @@ const deleteProperty = catchAsync(async (req: Request, res: Response) => {
     sendResponse(res, {
         success: true,
         statusCode: httpStatus.OK,
-        message: "Property deleted successfully",
+        message: "Property removed successfully",
         data: deletedProperty,
     });
 });
+
 
 const getLandlordRequests = catchAsync(async (req: Request, res: Response) => {
     const currentUser = req.user;

@@ -163,29 +163,40 @@ const updatePropertyIntoDB = async (
 const deletePropertyIntoDB = async (landlordId: string, propertyId: string) => {
     await ensureLandlordPropertyExists(propertyId, landlordId);
 
-    const [rentalRequestCount, reviewCount] = await Promise.all([
-        prisma.rentalRequest.count({
-            where: {
-                propertyId,
-            },
-        }),
-        prisma.review.count({
-            where: {
-                propertyId,
-            },
-        }),
-    ]);
+    // const [rentalRequestCount, reviewCount] = await Promise.all([
+    //     prisma.rentalRequest.count({
+    //         where: {
+    //             propertyId,
+    //         },
+    //     }),
+    //     prisma.review.count({
+    //         where: {
+    //             propertyId,
+    //         },
+    //     }),
+    // ]);
 
-    if (rentalRequestCount > 0 || reviewCount > 0) {
-        throw new Error("This property cannot be deleted because it has rental history or reviews");
-    }
+    // if (rentalRequestCount > 0 || reviewCount > 0) {
+    //     throw new Error("This property cannot be deleted because it has rental history or reviews");
+    // }
 
-    return prisma.property.delete({
+    // return prisma.property.delete({
+    //     where: {
+    //         id: propertyId,
+    //     },
+    //     select: propertySelect,
+    // });
+
+    const result = await prisma.property.update({
         where: {
             id: propertyId,
         },
+        data: {
+            isAvailable: false,
+        },
         select: propertySelect,
     });
+    return result;
 };
 
 const getLandlordRequestsFromDB = async (landlordId: string) => {
