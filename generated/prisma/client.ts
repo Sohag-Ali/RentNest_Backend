@@ -47,25 +47,25 @@ export { Prisma }
  */
 export type Category = Prisma.CategoryModel
 /**
- * Model Property
+ * Model Payment
  * 
  */
-export type Property = Prisma.PropertyModel
+export type Payment = Prisma.PaymentModel
 /**
  * Model RentalRequest
  * 
  */
 export type RentalRequest = Prisma.RentalRequestModel
 /**
- * Model Payment
- * 
- */
-export type Payment = Prisma.PaymentModel
-/**
  * Model Review
  * 
  */
 export type Review = Prisma.ReviewModel
+/**
+ * Model Property
+ * 
+ */
+export type Property = Prisma.PropertyModel
 /**
  * Model User
  * 

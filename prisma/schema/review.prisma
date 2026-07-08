@@ -1,0 +1,12 @@
+model Review {
+  id              String        @id @default(uuid())
+  tenantId        String
+  tenant          User          @relation(fields: [tenantId], references: [id])
+  propertyId      String
+  property        Property      @relation(fields: [propertyId], references: [id])
+  rentalRequestId String        @unique
+  rentalRequest   RentalRequest @relation(fields: [rentalRequestId], references: [id])
+  rating          Int
+  comment         String
+  createdAt       DateTime      @default(now())
+}

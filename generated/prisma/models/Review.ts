@@ -361,16 +361,6 @@ export type ReviewUncheckedUpdateManyInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type ReviewListRelationFilter = {
-  every?: Prisma.ReviewWhereInput
-  some?: Prisma.ReviewWhereInput
-  none?: Prisma.ReviewWhereInput
-}
-
-export type ReviewOrderByRelationAggregateInput = {
-  _count?: Prisma.SortOrder
-}
-
 export type ReviewNullableScalarRelationFilter = {
   is?: Prisma.ReviewWhereInput | null
   isNot?: Prisma.ReviewWhereInput | null
@@ -412,6 +402,56 @@ export type ReviewMinOrderByAggregateInput = {
 
 export type ReviewSumOrderByAggregateInput = {
   rating?: Prisma.SortOrder
+}
+
+export type ReviewListRelationFilter = {
+  every?: Prisma.ReviewWhereInput
+  some?: Prisma.ReviewWhereInput
+  none?: Prisma.ReviewWhereInput
+}
+
+export type ReviewOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
+}
+
+export type ReviewCreateNestedOneWithoutRentalRequestInput = {
+  create?: Prisma.XOR<Prisma.ReviewCreateWithoutRentalRequestInput, Prisma.ReviewUncheckedCreateWithoutRentalRequestInput>
+  connectOrCreate?: Prisma.ReviewCreateOrConnectWithoutRentalRequestInput
+  connect?: Prisma.ReviewWhereUniqueInput
+}
+
+export type ReviewUncheckedCreateNestedOneWithoutRentalRequestInput = {
+  create?: Prisma.XOR<Prisma.ReviewCreateWithoutRentalRequestInput, Prisma.ReviewUncheckedCreateWithoutRentalRequestInput>
+  connectOrCreate?: Prisma.ReviewCreateOrConnectWithoutRentalRequestInput
+  connect?: Prisma.ReviewWhereUniqueInput
+}
+
+export type ReviewUpdateOneWithoutRentalRequestNestedInput = {
+  create?: Prisma.XOR<Prisma.ReviewCreateWithoutRentalRequestInput, Prisma.ReviewUncheckedCreateWithoutRentalRequestInput>
+  connectOrCreate?: Prisma.ReviewCreateOrConnectWithoutRentalRequestInput
+  upsert?: Prisma.ReviewUpsertWithoutRentalRequestInput
+  disconnect?: Prisma.ReviewWhereInput | boolean
+  delete?: Prisma.ReviewWhereInput | boolean
+  connect?: Prisma.ReviewWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ReviewUpdateToOneWithWhereWithoutRentalRequestInput, Prisma.ReviewUpdateWithoutRentalRequestInput>, Prisma.ReviewUncheckedUpdateWithoutRentalRequestInput>
+}
+
+export type ReviewUncheckedUpdateOneWithoutRentalRequestNestedInput = {
+  create?: Prisma.XOR<Prisma.ReviewCreateWithoutRentalRequestInput, Prisma.ReviewUncheckedCreateWithoutRentalRequestInput>
+  connectOrCreate?: Prisma.ReviewCreateOrConnectWithoutRentalRequestInput
+  upsert?: Prisma.ReviewUpsertWithoutRentalRequestInput
+  disconnect?: Prisma.ReviewWhereInput | boolean
+  delete?: Prisma.ReviewWhereInput | boolean
+  connect?: Prisma.ReviewWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ReviewUpdateToOneWithWhereWithoutRentalRequestInput, Prisma.ReviewUpdateWithoutRentalRequestInput>, Prisma.ReviewUncheckedUpdateWithoutRentalRequestInput>
+}
+
+export type IntFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
 }
 
 export type ReviewCreateNestedManyWithoutPropertyInput = {
@@ -456,46 +496,6 @@ export type ReviewUncheckedUpdateManyWithoutPropertyNestedInput = {
   deleteMany?: Prisma.ReviewScalarWhereInput | Prisma.ReviewScalarWhereInput[]
 }
 
-export type ReviewCreateNestedOneWithoutRentalRequestInput = {
-  create?: Prisma.XOR<Prisma.ReviewCreateWithoutRentalRequestInput, Prisma.ReviewUncheckedCreateWithoutRentalRequestInput>
-  connectOrCreate?: Prisma.ReviewCreateOrConnectWithoutRentalRequestInput
-  connect?: Prisma.ReviewWhereUniqueInput
-}
-
-export type ReviewUncheckedCreateNestedOneWithoutRentalRequestInput = {
-  create?: Prisma.XOR<Prisma.ReviewCreateWithoutRentalRequestInput, Prisma.ReviewUncheckedCreateWithoutRentalRequestInput>
-  connectOrCreate?: Prisma.ReviewCreateOrConnectWithoutRentalRequestInput
-  connect?: Prisma.ReviewWhereUniqueInput
-}
-
-export type ReviewUpdateOneWithoutRentalRequestNestedInput = {
-  create?: Prisma.XOR<Prisma.ReviewCreateWithoutRentalRequestInput, Prisma.ReviewUncheckedCreateWithoutRentalRequestInput>
-  connectOrCreate?: Prisma.ReviewCreateOrConnectWithoutRentalRequestInput
-  upsert?: Prisma.ReviewUpsertWithoutRentalRequestInput
-  disconnect?: Prisma.ReviewWhereInput | boolean
-  delete?: Prisma.ReviewWhereInput | boolean
-  connect?: Prisma.ReviewWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ReviewUpdateToOneWithWhereWithoutRentalRequestInput, Prisma.ReviewUpdateWithoutRentalRequestInput>, Prisma.ReviewUncheckedUpdateWithoutRentalRequestInput>
-}
-
-export type ReviewUncheckedUpdateOneWithoutRentalRequestNestedInput = {
-  create?: Prisma.XOR<Prisma.ReviewCreateWithoutRentalRequestInput, Prisma.ReviewUncheckedCreateWithoutRentalRequestInput>
-  connectOrCreate?: Prisma.ReviewCreateOrConnectWithoutRentalRequestInput
-  upsert?: Prisma.ReviewUpsertWithoutRentalRequestInput
-  disconnect?: Prisma.ReviewWhereInput | boolean
-  delete?: Prisma.ReviewWhereInput | boolean
-  connect?: Prisma.ReviewWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ReviewUpdateToOneWithWhereWithoutRentalRequestInput, Prisma.ReviewUpdateWithoutRentalRequestInput>, Prisma.ReviewUncheckedUpdateWithoutRentalRequestInput>
-}
-
-export type IntFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type ReviewCreateNestedManyWithoutTenantInput = {
   create?: Prisma.XOR<Prisma.ReviewCreateWithoutTenantInput, Prisma.ReviewUncheckedCreateWithoutTenantInput> | Prisma.ReviewCreateWithoutTenantInput[] | Prisma.ReviewUncheckedCreateWithoutTenantInput[]
   connectOrCreate?: Prisma.ReviewCreateOrConnectWithoutTenantInput | Prisma.ReviewCreateOrConnectWithoutTenantInput[]
@@ -536,6 +536,58 @@ export type ReviewUncheckedUpdateManyWithoutTenantNestedInput = {
   update?: Prisma.ReviewUpdateWithWhereUniqueWithoutTenantInput | Prisma.ReviewUpdateWithWhereUniqueWithoutTenantInput[]
   updateMany?: Prisma.ReviewUpdateManyWithWhereWithoutTenantInput | Prisma.ReviewUpdateManyWithWhereWithoutTenantInput[]
   deleteMany?: Prisma.ReviewScalarWhereInput | Prisma.ReviewScalarWhereInput[]
+}
+
+export type ReviewCreateWithoutRentalRequestInput = {
+  id?: string
+  rating: number
+  comment: string
+  createdAt?: Date | string
+  tenant: Prisma.UserCreateNestedOneWithoutReviewsInput
+  property: Prisma.PropertyCreateNestedOneWithoutReviewsInput
+}
+
+export type ReviewUncheckedCreateWithoutRentalRequestInput = {
+  id?: string
+  tenantId: string
+  propertyId: string
+  rating: number
+  comment: string
+  createdAt?: Date | string
+}
+
+export type ReviewCreateOrConnectWithoutRentalRequestInput = {
+  where: Prisma.ReviewWhereUniqueInput
+  create: Prisma.XOR<Prisma.ReviewCreateWithoutRentalRequestInput, Prisma.ReviewUncheckedCreateWithoutRentalRequestInput>
+}
+
+export type ReviewUpsertWithoutRentalRequestInput = {
+  update: Prisma.XOR<Prisma.ReviewUpdateWithoutRentalRequestInput, Prisma.ReviewUncheckedUpdateWithoutRentalRequestInput>
+  create: Prisma.XOR<Prisma.ReviewCreateWithoutRentalRequestInput, Prisma.ReviewUncheckedCreateWithoutRentalRequestInput>
+  where?: Prisma.ReviewWhereInput
+}
+
+export type ReviewUpdateToOneWithWhereWithoutRentalRequestInput = {
+  where?: Prisma.ReviewWhereInput
+  data: Prisma.XOR<Prisma.ReviewUpdateWithoutRentalRequestInput, Prisma.ReviewUncheckedUpdateWithoutRentalRequestInput>
+}
+
+export type ReviewUpdateWithoutRentalRequestInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  rating?: Prisma.IntFieldUpdateOperationsInput | number
+  comment?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.UserUpdateOneRequiredWithoutReviewsNestedInput
+  property?: Prisma.PropertyUpdateOneRequiredWithoutReviewsNestedInput
+}
+
+export type ReviewUncheckedUpdateWithoutRentalRequestInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  propertyId?: Prisma.StringFieldUpdateOperationsInput | string
+  rating?: Prisma.IntFieldUpdateOperationsInput | number
+  comment?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ReviewCreateWithoutPropertyInput = {
@@ -593,58 +645,6 @@ export type ReviewScalarWhereInput = {
   rating?: Prisma.IntFilter<"Review"> | number
   comment?: Prisma.StringFilter<"Review"> | string
   createdAt?: Prisma.DateTimeFilter<"Review"> | Date | string
-}
-
-export type ReviewCreateWithoutRentalRequestInput = {
-  id?: string
-  rating: number
-  comment: string
-  createdAt?: Date | string
-  tenant: Prisma.UserCreateNestedOneWithoutReviewsInput
-  property: Prisma.PropertyCreateNestedOneWithoutReviewsInput
-}
-
-export type ReviewUncheckedCreateWithoutRentalRequestInput = {
-  id?: string
-  tenantId: string
-  propertyId: string
-  rating: number
-  comment: string
-  createdAt?: Date | string
-}
-
-export type ReviewCreateOrConnectWithoutRentalRequestInput = {
-  where: Prisma.ReviewWhereUniqueInput
-  create: Prisma.XOR<Prisma.ReviewCreateWithoutRentalRequestInput, Prisma.ReviewUncheckedCreateWithoutRentalRequestInput>
-}
-
-export type ReviewUpsertWithoutRentalRequestInput = {
-  update: Prisma.XOR<Prisma.ReviewUpdateWithoutRentalRequestInput, Prisma.ReviewUncheckedUpdateWithoutRentalRequestInput>
-  create: Prisma.XOR<Prisma.ReviewCreateWithoutRentalRequestInput, Prisma.ReviewUncheckedCreateWithoutRentalRequestInput>
-  where?: Prisma.ReviewWhereInput
-}
-
-export type ReviewUpdateToOneWithWhereWithoutRentalRequestInput = {
-  where?: Prisma.ReviewWhereInput
-  data: Prisma.XOR<Prisma.ReviewUpdateWithoutRentalRequestInput, Prisma.ReviewUncheckedUpdateWithoutRentalRequestInput>
-}
-
-export type ReviewUpdateWithoutRentalRequestInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  rating?: Prisma.IntFieldUpdateOperationsInput | number
-  comment?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  tenant?: Prisma.UserUpdateOneRequiredWithoutReviewsNestedInput
-  property?: Prisma.PropertyUpdateOneRequiredWithoutReviewsNestedInput
-}
-
-export type ReviewUncheckedUpdateWithoutRentalRequestInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  propertyId?: Prisma.StringFieldUpdateOperationsInput | string
-  rating?: Prisma.IntFieldUpdateOperationsInput | number
-  comment?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ReviewCreateWithoutTenantInput = {

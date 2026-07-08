@@ -1,11 +1,6 @@
-import express, { Application, Request, Response } from "express";
-
-import httpStatus from "http-status";
-
 import bcrypt from "bcrypt";
 import { prisma } from "../../lib/prisma";
 import config from "../../config";
-import { Role } from "../../../generated/prisma/enums";
 import { CreateUserRequest } from "./user.interface";
 
 
@@ -44,7 +39,21 @@ const createUser = async (payload: CreateUserRequest) => {
 }
 
 const getMyProfileIntoDB = async (userId: string) => {
-
+    const user = await prisma.user.findUnique({
+        where: {
+            id: userId,
+        },
+        select: {
+            id: true,
+            name: true,
+            email: true,
+            role: true,
+            status: true,
+            createdAt: true,
+            updatedAt: true,
+        },
+    });
+    return user;
 }
 
 export const userService = {

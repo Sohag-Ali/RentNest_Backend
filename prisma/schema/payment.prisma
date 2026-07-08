@@ -1,0 +1,13 @@
+model Payment {
+  id              String          @id @default(uuid())
+  rentalRequestId String          @unique
+  rentalRequest   RentalRequest   @relation(fields: [rentalRequestId], references: [id])
+  userId          String
+  user            User            @relation(fields: [userId], references: [id])
+  transactionId   String          @unique
+  amount          Float
+  provider        PaymentProvider
+  status          PaymentStatus   @default(PENDING)
+  paidAt          DateTime?
+  createdAt       DateTime        @default(now())
+}

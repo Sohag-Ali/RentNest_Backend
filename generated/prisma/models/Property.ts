@@ -436,6 +436,11 @@ export type PropertyOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type PropertyScalarRelationFilter = {
+  is?: Prisma.PropertyWhereInput
+  isNot?: Prisma.PropertyWhereInput
+}
+
 export type StringNullableListFilter<$PrismaModel = never> = {
   equals?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
   has?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
@@ -489,11 +494,6 @@ export type PropertySumOrderByAggregateInput = {
   price?: Prisma.SortOrder
 }
 
-export type PropertyScalarRelationFilter = {
-  is?: Prisma.PropertyWhereInput
-  isNot?: Prisma.PropertyWhereInput
-}
-
 export type PropertyCreateNestedManyWithoutCategoryInput = {
   create?: Prisma.XOR<Prisma.PropertyCreateWithoutCategoryInput, Prisma.PropertyUncheckedCreateWithoutCategoryInput> | Prisma.PropertyCreateWithoutCategoryInput[] | Prisma.PropertyUncheckedCreateWithoutCategoryInput[]
   connectOrCreate?: Prisma.PropertyCreateOrConnectWithoutCategoryInput | Prisma.PropertyCreateOrConnectWithoutCategoryInput[]
@@ -536,31 +536,6 @@ export type PropertyUncheckedUpdateManyWithoutCategoryNestedInput = {
   deleteMany?: Prisma.PropertyScalarWhereInput | Prisma.PropertyScalarWhereInput[]
 }
 
-export type PropertyCreateamenitiesInput = {
-  set: string[]
-}
-
-export type FloatFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
-export type PropertyUpdateamenitiesInput = {
-  set?: string[]
-  push?: string | string[]
-}
-
-export type BoolFieldUpdateOperationsInput = {
-  set?: boolean
-}
-
-export type DateTimeFieldUpdateOperationsInput = {
-  set?: Date | string
-}
-
 export type PropertyCreateNestedOneWithoutRentalRequestsInput = {
   create?: Prisma.XOR<Prisma.PropertyCreateWithoutRentalRequestsInput, Prisma.PropertyUncheckedCreateWithoutRentalRequestsInput>
   connectOrCreate?: Prisma.PropertyCreateOrConnectWithoutRentalRequestsInput
@@ -587,6 +562,19 @@ export type PropertyUpdateOneRequiredWithoutReviewsNestedInput = {
   upsert?: Prisma.PropertyUpsertWithoutReviewsInput
   connect?: Prisma.PropertyWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.PropertyUpdateToOneWithWhereWithoutReviewsInput, Prisma.PropertyUpdateWithoutReviewsInput>, Prisma.PropertyUncheckedUpdateWithoutReviewsInput>
+}
+
+export type PropertyCreateamenitiesInput = {
+  set: string[]
+}
+
+export type PropertyUpdateamenitiesInput = {
+  set?: string[]
+  push?: string | string[]
+}
+
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
 }
 
 export type PropertyCreateNestedManyWithoutLandlordInput = {

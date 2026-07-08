@@ -12,44 +12,6 @@ datasource db {
   provider = "postgresql"
 }
 
-enum Role {
-  TENANT
-  LANDLORD
-  ADMIN
-}
-
-enum UserStatus {
-  ACTIVE
-  INACTIVE
-  BANNED
-}
-
-enum RentalStatus {
-  PENDING
-  APPROVED
-  REJECTED
-  CANCELLED
-  COMPLETED
-}
-
-enum PaymentProvider {
-  STRIPE
-  PAYPAL
-  SQUARE
-}
-
-enum PaymentStatus {
-  PENDING
-  COMPLETED
-  FAILED
-  REFUNDED
-}
-
-model Category {
-  id         String     @id @default(uuid())
-  name       String     @unique
-  properties Property[]
-}
 
 model Property {
   id             String          @id @default(uuid())
@@ -68,42 +30,3 @@ model Property {
   createdAt      DateTime        @default(now())
 }
 
-model RentalRequest {
-  id         String       @id @default(uuid())
-  tenantId   String
-  tenant     User         @relation(fields: [tenantId], references: [id])
-  propertyId String
-  property   Property     @relation(fields: [propertyId], references: [id])
-  status     RentalStatus @default(PENDING)
-  moveInDate DateTime?
-  payment    Payment?
-  review     Review?
-  createdAt  DateTime     @default(now())
-}
-
-model Payment {
-  id              String          @id @default(uuid())
-  rentalRequestId String          @unique
-  rentalRequest   RentalRequest   @relation(fields: [rentalRequestId], references: [id])
-  userId          String
-  user            User            @relation(fields: [userId], references: [id])
-  transactionId   String          @unique
-  amount          Float
-  provider        PaymentProvider
-  status          PaymentStatus   @default(PENDING)
-  paidAt          DateTime?
-  createdAt       DateTime        @default(now())
-}
-
-model Review {
-  id              String        @id @default(uuid())
-  tenantId        String
-  tenant          User          @relation(fields: [tenantId], references: [id])
-  propertyId      String
-  property        Property      @relation(fields: [propertyId], references: [id])
-  rentalRequestId String        @unique
-  rentalRequest   RentalRequest @relation(fields: [rentalRequestId], references: [id])
-  rating          Int
-  comment         String
-  createdAt       DateTime      @default(now())
-}
