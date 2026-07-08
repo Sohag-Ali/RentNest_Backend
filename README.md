@@ -1,125 +1,443 @@
-# Assignment 4 - Backend Project
+# 🏠 RentNest API
 
-## 🔍 Find Your Assignment
+**A production-ready Rental House Management System REST API** built with modern backend technologies.
+RentNest enables landlords to list and manage rental properties, tenants to submit rental requests and complete payments online, and both parties to interact through a secure, role-based system. The project follows feature-based MVC architecture with clean separation of concerns throughout.
 
-> 💡 Check your Student ID by clicking your **profile image** on the [Programming Hero Website](https://web.programming-hero.com/profile).
-
-| Last Digit of Student ID | Assignment |
-|:------------------------:|------------|
-| **0, 1, 2, 3** | [RentNest](./1-RentNest.md) 🏠 |
-| **4, 5, 6** | [GearUp](./2-GearUp.md) 🏋️ |
-| **7, 8, 9** | [FixItNow](./3-FixItNow.md) 🔧 |
-
----
-
-## ⚠️ Mandatory Requirements
-
-> [!CAUTION]
-> **MANDATORY - READ CAREFULLY**
-> 
-> The following **SIX requirements are MANDATORY**:
-> 1. **API Documentation** - Provide Postman collection or Swagger/OpenAPI docs covering all endpoints
-> 2. **Consistent Error Responses** - All errors must return structured JSON (`{ success, message, errorDetails }`)
-> 3. **Commits** - 20 meaningful backend commits with descriptive messages
-> 4. **Input Validation** - Server-side validation on all endpoints with proper error messages
-> 5. **Admin Credentials** - Provide working admin email & password
-> 6. **Payment Integration** - Must integrate **Stripe** or **SSLCommerz** for processing payments. Simulated/fake payments (Cash on Delivery, Pay Later) are **NOT** accepted.
->
-> ❌ **Failure to complete any of these = 0 MARKS**
+<p align="left">
+  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" />
+  <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" />
+  <img src="https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white" />
+  <img src="https://img.shields.io/badge/Prisma-2D3748?style=for-the-badge&logo=prisma&logoColor=white" />
+  <img src="https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" />
+  <img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white" />
+  <img src="https://img.shields.io/badge/Stripe-635BFF?style=for-the-badge&logo=stripe&logoColor=white" />
+  <img src="https://img.shields.io/badge/Zod-3E67B1?style=for-the-badge&logo=zod&logoColor=white" />
+</p>
 
 ---
 
-## 📊 Marks Distribution
+## 🌐 Live API
 
-| # | Category | Weight | Details |
-|:-:|----------|:------:|---------|
-| 1 | API Design & Documentation | 20% | RESTful endpoints, Postman/Swagger docs, response format |
-| 2 | Database Design & Schema | 20% | Prisma schema, relations, migrations, seed script |
-| 3 | Commit History | 10% | 20 meaningful backend commits |
-| 4 | Error Handling & Validation | 10% | Input validation, structured error responses, 404 handling |
-| 5 | Core Functionality | 20% | Auth, CRUD, role-based access, middleware |
-| 6 | Payment Integration | 10% | Stripe or SSLCommerz integration, payment endpoints, payment status tracking |
-| 7 | Video Explanation | 10% | 3-5 min API walkthrough video |
+| Resource        | URL                                      |
+| --------------- | ---------------------------------------- |
+| 🚀 Server       | `<SERVER_URL>`                           |
+| 🔗 API Base URL | `<SERVER_URL>/api`                       |
 
 ---
 
-## 📅 Timeline
+## 🗄️ Database Design
 
-| Deadline | Maximum Marks |
-|----------|:-------------:|
-| **July 09, 2026, 11:59 PM** | 60 Marks |
-| **July 10, 2026, 11:59 PM** | 50 Marks |
-| **From July 11, 2026 To July 31, 2026, 11:59 PM** | 30 Marks |
+🔗 **DrawSQL Diagram:** [`<PUT_DRAWSQL_LINK_HERE>`](<PUT_DRAWSQL_LINK_HERE>)
+
+The database is designed around six core models: **User**, **Property**, **Category**, **RentalRequest**, **Payment**, and **Review**. Relations are optimized with foreign key constraints and cascade rules. A `RentalRequest` links a `Tenant` to a `Property`, progressing through statuses (`PENDING → APPROVED → COMPLETED`). `Payment` and `Review` each have a one-to-one relationship with a `RentalRequest`, enforcing business rules at the data layer.
 
 ---
 
-## 📦 What to Submit
+## 📖 Project Overview
 
-| Item | Required |
-|------|:--------:|
-| Backend GitHub Repo | ✅ |
-| Live API URL | ✅ |
-| API Documentation (Postman/Swagger) | ✅ |
-| Demo Video (3-5 min) | ✅ |
-| Admin Credentials | ✅ |
+RentNest is a comprehensive backend system for managing rental housing operations. The platform serves three distinct user roles — **Admin**, **Landlord**, and **Tenant** — each with scoped permissions enforced through JWT-based role authorization.
 
-**Example:**
-```
-Backend Repo     : https://github.com/your-username/rentnest-backend
-Live API         : https://rentnest-api.vercel.app
-API Docs         : https://documenter.getpostman.com/view/xxx
-Demo Video       : https://drive.google.com/file/d/xxx/view
-Admin Email      : admin@rentnest.com
-Admin Password   : admin123
-```
+Landlords can create, update, and delete property listings, then review and approve or reject incoming rental requests from tenants. Once a request is approved, the tenant initiates a secure **Stripe Checkout** payment session. Upon successful payment confirmation, the rental status automatically transitions to `COMPLETED`, unlocking the ability for the tenant to leave a **rating and review** for the property.
+
+Admins have a dedicated dashboard to oversee all users, properties, and rentals — with the ability to ban or unban accounts. The public property listing endpoint supports **search, filtering, sorting, pagination, and category-based filtering** to provide a rich browsing experience without requiring authentication.
+
+The project is built following **production-level REST API architecture** with feature-based MVC, global error handling, Zod request validation, Prisma transactions, and environment-based configuration.
 
 ---
 
-## 🎥 Video Explanation Guide
+## ✨ Key Features
 
-**Duration:** 3-5 minutes | **Language:** English or Bengali
+### 🔐 Authentication & Authorization
+- ✅ JWT Access & Refresh Token system
+- ✅ Role-based authorization (`ADMIN`, `LANDLORD`, `TENANT`)
+- ✅ Secure password hashing with bcrypt
+- ✅ Register, Login, Current User profile
+- ✅ Cookie-based token storage
 
-**What to Cover:**
-1. Project overview & API architecture
-2. Demonstrate all 3 roles working via Postman/Thunder Client (Customer/Tenant, Provider/Landlord/Technician, Admin)
-3. Show CRUD operations on key endpoints
-4. Demonstrate error handling & validation in action
-5. Briefly explain one technical challenge you solved
+### 🏘️ Landlord Module
+- ✅ Create, Update, Delete property listings
+- ✅ View all incoming rental requests
+- ✅ Approve or Reject rental requests
 
-**Recording Options:**
-- **Loom** - Record & share link directly
-- **OBS** - Record & upload to Google Drive (set "Anyone with link" access)
+### 🏠 Property Module
+- ✅ Public property listing (no auth required)
+- ✅ Search by title or location
+- ✅ Filter by category, price, and availability
+- ✅ Sorting and pagination
+- ✅ Property detail by ID
+
+### 📋 Rental Module
+- ✅ Submit rental request for a property
+- ✅ View own rental request history
+- ✅ Rental request detail
+
+### 💳 Payment Module
+- ✅ Stripe Checkout session creation
+- ✅ Secure payment confirmation via session ID
+- ✅ Payment history for authenticated tenant
+- ✅ Rental status auto-transitions to `COMPLETED` on payment
+
+### ⭐ Review Module
+- ✅ Submit a review only after rental completion
+- ✅ Rating system (1–5 stars)
+- ✅ One review enforced per rental request
+
+### 🛡️ Admin Module
+- ✅ View and paginate all users
+- ✅ Ban / Unban user accounts
+- ✅ View all properties across the platform
+- ✅ View all rental requests
+
+### 🔍 Validation & Error Handling
+- ✅ Zod schema validation on all inputs
+- ✅ Global error handler with Prisma error mapping
+- ✅ Consistent JSON error responses
+- ✅ `AppError` for domain-level errors
 
 ---
 
 ## 🛠️ Tech Stack
 
-### Backend
-| Technology | Purpose |
-|------------|---------|
-| Node.js + Express | REST API |
-| TypeScript | Type safety (recommended) |
-| Postgres + Prisma | Database + ORM |
-| JWT | Authentication |
-
-### Deployment
-| Service | Purpose |
-|---------|---------| 
-| Vercel/Render | Backend API deployment |
-
----
-
-## 🎯 Key Rules
-
-- **Roles**: Each project has 3 fixed roles. Users select during registration.
-- **Payment**: Payment integration is **MANDATORY**. You must integrate either **Stripe** or **SSLCommerz** for processing payments. Include endpoints for creating payment intents/sessions, handling payment confirmations, and tracking payment status.
-- **No Frontend Required**: This is a backend-only assignment. Test your API via Postman/Thunder Client.
-- **Flexibility**: Endpoints listed in each variant are examples. Modify as needed.
+| Layer            | Technology                     |
+| ---------------- | ------------------------------ |
+| **Runtime**      | Node.js                        |
+| **Framework**    | Express.js v5                  |
+| **Language**     | TypeScript                     |
+| **ORM**          | Prisma ORM                     |
+| **Database**     | PostgreSQL                     |
+| **Auth**         | JSON Web Tokens (JWT)          |
+| **Payments**     | Stripe Checkout                |
+| **Validation**   | Zod                            |
+| **Hashing**      | bcrypt / bcryptjs              |
+| **Cookies**      | cookie-parser                  |
+| **CORS**         | cors                           |
+| **Build**        | tsc / tsx                      |
 
 ---
 
-## ⚠️ Important Notes
+## 📡 API Endpoints
 
-> **Plagiarism** = 0 Marks. All work must be original.
+### 🔐 Authentication — `/api/auth`
 
-**Good luck! Build a rock-solid backend you're proud of.** 🚀
+| Method | Endpoint            | Auth     | Description              |
+| ------ | ------------------- | -------- | ------------------------ |
+| `POST` | `/register`         | Public   | Register a new user      |
+| `POST` | `/login`            | Public   | Login and receive tokens |
+| `GET`  | `/me`               | Any role | Get current user profile |
+
+### 🏘️ Landlord — `/api/landlord`
+
+| Method   | Endpoint             | Auth       | Description                      |
+| -------- | -------------------- | ---------- | -------------------------------- |
+| `POST`   | `/properties`        | LANDLORD   | Create a new property listing    |
+| `PUT`    | `/properties/:id`    | LANDLORD   | Update a property listing        |
+| `DELETE` | `/properties/:id`    | LANDLORD   | Delete a property listing        |
+| `GET`    | `/requests`          | LANDLORD   | View all incoming rental requests |
+| `PATCH`  | `/requests/:id`      | LANDLORD   | Approve or reject a request      |
+
+### 🏠 Property — `/api/properties`
+
+| Method | Endpoint   | Auth   | Description                                    |
+| ------ | ---------- | ------ | ---------------------------------------------- |
+| `GET`  | `/`        | Public | List all properties (search, filter, paginate) |
+| `GET`  | `/:id`     | Public | Get a single property by ID                    |
+
+### 📂 Category — `/api/categories`
+
+| Method | Endpoint | Auth   | Description            |
+| ------ | -------- | ------ | ---------------------- |
+| `GET`  | `/`      | Public | List all categories    |
+
+### 📋 Rental — `/api/rentals`
+
+| Method | Endpoint | Auth   | Description                    |
+| ------ | -------- | ------ | ------------------------------ |
+| `POST` | `/`      | TENANT | Submit a new rental request    |
+| `GET`  | `/`      | TENANT | View own rental request history |
+| `GET`  | `/:id`   | TENANT | Get a rental request by ID     |
+
+### 💳 Payment — `/api/payments`
+
+| Method | Endpoint    | Auth   | Description                                  |
+| ------ | ----------- | ------ | -------------------------------------------- |
+| `POST` | `/create`   | TENANT | Create a Stripe Checkout session             |
+| `POST` | `/confirm`  | TENANT | Confirm payment and mark rental as completed |
+| `GET`  | `/`         | TENANT | Get own payment history                      |
+| `GET`  | `/:id`      | TENANT | Get a single payment by ID                   |
+| `GET`  | `/success`  | Public | Stripe redirect — payment success page       |
+| `GET`  | `/cancel`   | Public | Stripe redirect — payment cancelled page     |
+
+### ⭐ Review — `/api/reviews`
+
+| Method | Endpoint | Auth   | Description                           |
+| ------ | -------- | ------ | ------------------------------------- |
+| `POST` | `/`      | TENANT | Submit a review for a completed rental |
+
+### 🛡️ Admin — `/api/admin`
+
+| Method  | Endpoint        | Auth  | Description                        |
+| ------- | --------------- | ----- | ---------------------------------- |
+| `GET`   | `/users`        | ADMIN | List all users (with pagination)   |
+| `PATCH` | `/users/:id`    | ADMIN | Ban or unban a user account        |
+| `GET`   | `/properties`   | ADMIN | View all properties                |
+| `GET`   | `/rentals`      | ADMIN | View all rental requests           |
+
+---
+
+## 📁 Folder Structure
+
+```
+rentnest/
+├── prisma/
+│   ├── schema/
+│   │   ├── schema.prisma         # Datasource & generator config
+│   │   ├── user.prisma
+│   │   ├── category.prisma
+│   │   ├── enums.prisma
+│   │   ├── payment.prisma
+│   │   ├── rentalRequest.prisma
+│   │   └── review.prisma
+│   └── migrations/
+├── src/
+│   ├── config/
+│   │   └── index.ts              # Environment configuration
+│   ├── lib/
+│   │   └── prisma.ts             # Prisma client singleton
+│   ├── middlewares/
+│   │   ├── authenticateUser.ts   # JWT auth + role guard
+│   │   ├── validateRequest.ts    # Zod validation middleware
+│   │   ├── globalErrorHandler.ts # Centralized error handler
+│   │   └── notFound.ts           # 404 handler
+│   ├── modules/
+│   │   ├── auth/                 # Login, refresh token
+│   │   ├── user/                 # Register, profile
+│   │   ├── landlord/             # Property & request management
+│   │   ├── property/             # Public property listing
+│   │   ├── category/             # Category listing
+│   │   ├── rental/               # Rental request lifecycle
+│   │   ├── payment/              # Stripe payment flow
+│   │   ├── review/               # Review submission
+│   │   └── admin/                # Admin dashboard
+│   ├── utils/
+│   │   ├── AppError.ts           # Custom error class
+│   │   ├── catchAsync.ts         # Async error wrapper
+│   │   ├── sendResponse.ts       # Consistent JSON response helper
+│   │   └── jwt.ts                # JWT utilities
+│   ├── app.ts                    # Express app setup
+│   └── server.ts                 # HTTP server entry point
+├── .env
+├── .env.example
+├── package.json
+├── prisma.config.ts
+└── tsconfig.json
+```
+
+---
+
+## 🔄 Business Flow
+
+```
+                         ┌─────────────────────────┐
+                         │   User Registration /    │
+                         │        Login             │
+                         └────────────┬────────────┘
+                                      │ JWT Token
+                    ┌─────────────────┴──────────────────┐
+                    │                                     │
+             ┌──────▼──────┐                    ┌────────▼───────┐
+             │   LANDLORD   │                    │    TENANT      │
+             │ Creates      │                    │ Browses        │
+             │ Property     │                    │ Properties     │
+             └──────┬───────┘                    └───────┬────────┘
+                    │                                    │
+                    │                         ┌──────────▼────────┐
+                    │                         │  Submits Rental   │
+                    │                         │  Request (PENDING)│
+                    │                         └──────────┬────────┘
+                    │                                    │
+             ┌──────▼────────────────────────────────────▼──────┐
+             │           Landlord Reviews Request               │
+             │         APPROVE  ──────────────  REJECT          │
+             └──────────────────────┬───────────────────────────┘
+                                    │ APPROVED
+                         ┌──────────▼──────────┐
+                         │   Tenant Initiates  │
+                         │  Stripe Checkout    │
+                         └──────────┬──────────┘
+                                    │ Payment Confirmed
+                         ┌──────────▼──────────┐
+                         │  Rental → COMPLETED │
+                         │  Payment recorded   │
+                         └──────────┬──────────┘
+                                    │
+                         ┌──────────▼──────────┐
+                         │  Tenant Submits      │
+                         │  Review + Rating     │
+                         └─────────────────────┘
+```
+
+---
+
+## 🔒 Security Features
+
+| Feature                    | Implementation                              |
+| -------------------------- | ------------------------------------------- |
+| 🔑 Authentication          | JWT Access & Refresh tokens via cookies     |
+| 🔐 Password Security       | bcrypt hashing with configurable salt rounds |
+| 👥 Role-Based Access       | Middleware guards per endpoint              |
+| 🛡️ Input Validation        | Zod schemas on every request body/query     |
+| ⚠️ Error Handling          | Centralized global handler with Prisma mapping |
+| 💾 Atomic Operations       | Prisma `$transaction` for payment + status update |
+| 🚫 Account Management      | Admin can ban/unban users, blocking access  |
+
+---
+
+## ⚙️ Environment Variables
+
+Create a `.env` file in the project root based on the example below:
+
+```env
+# .env.example
+
+# Database
+DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/DATABASE"
+
+# JWT
+JWT_ACCESS_SECRET="your_access_token_secret"
+JWT_REFRESH_SECRET="your_refresh_token_secret"
+JWT_ACCESS_EXPIRES_IN="1d"
+JWT_REFRESH_EXPIRES_IN="7d"
+
+# Bcrypt
+BCRYPT_SALT_ROUNDS=12
+
+# Stripe
+STRIPE_SECRET_KEY="sk_test_your_stripe_secret_key"
+
+# Server
+PORT=5000
+CLIENT_URL="http://localhost:3000"
+```
+
+---
+
+## 🚀 Installation & Setup
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/your-username/rentnest-api.git
+cd rentnest-api
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Configure environment variables
+
+```bash
+cp .env.example .env
+# Fill in your values in .env
+```
+
+### 4. Generate Prisma Client
+
+```bash
+npx prisma generate
+```
+
+### 5. Run database migrations
+
+```bash
+npx prisma migrate deploy
+```
+
+### 6. Seed the database *(optional)*
+
+```bash
+npx prisma db seed
+```
+
+### 7. Start the development server
+
+```bash
+npm run dev
+```
+
+The API will be running at `http://localhost:5000`.
+
+---
+
+## 🧪 API Testing
+
+All endpoints can be tested using **[Postman](https://www.postman.com/)** — no frontend is required.
+
+**Recommended flow:**
+1. Register a user via `POST /api/auth/register`
+2. Login via `POST /api/auth/login` to obtain tokens
+3. Use the `accessToken` as a `Bearer` token in the `Authorization` header (or rely on cookie auto-send)
+4. For Stripe payments, use `POST /api/payments/create` to get a Checkout URL, complete the payment in the browser, then confirm with `POST /api/payments/confirm` using the returned `sessionId`
+
+> 💡 Import the collection into Postman and set `{{base_url}}` to `http://localhost:5000/api` as an environment variable for convenience.
+
+---
+
+## 🔮 Future Improvements
+
+| Status | Feature                  | Description                                       |
+| ------ | ------------------------ | ------------------------------------------------- |
+| 🔲     | Notification System      | Real-time alerts for request approval & payments  |
+| 🔲     | Image Upload             | Cloudinary integration for property photos        |
+| 🔲     | Chat System              | In-app messaging between landlords and tenants    |
+| 🔲     | Analytics Dashboard      | Revenue and occupancy stats for landlords         |
+| 🔲     | Advanced Search          | Full-text search with geolocation filtering       |
+| 🔲     | Email Verification       | SendGrid/Nodemailer on registration               |
+| 🔲     | Password Reset           | Secure reset flow via email token                 |
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome and appreciated. To contribute:
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/your-feature-name`
+3. Commit your changes: `git commit -m "feat: add your feature"`
+4. Push to the branch: `git push origin feature/your-feature-name`
+5. Open a Pull Request with a clear description of your changes
+
+Please follow the existing code style and ensure no TypeScript errors before submitting.
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 👤 Author
+
+**Sohag Ali**
+
+<p align="left">
+  <a href="https://github.com/Sohag-Ali">
+    <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" />
+  </a>
+  <a href="https://www.linkedin.com/in/sohag-ali-bd/">
+    <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" />
+  </a>
+  <a href="https://portfolio-sohag-ali.vercel.app/">
+    <img src="https://img.shields.io/badge/Portfolio-FF5722?style=for-the-badge&logo=firefox&logoColor=white" />
+  </a>
+  <a href="mailto:sohag2879@gmail.com">
+    <img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" />
+  </a>
+</p>
+
+---
+
+<p align="center">Made with ❤️ using Node.js, Express, TypeScript & Prisma</p>

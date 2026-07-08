@@ -121,7 +121,6 @@ const paymentCancel = (req: Request, res: Response) => {
     });
 };
 
-
 export const paymentController = {
     createPayment,
     confirmPayment,
