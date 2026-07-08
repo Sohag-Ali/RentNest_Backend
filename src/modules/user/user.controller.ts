@@ -22,6 +22,12 @@ const createUser = catchAsync(async (req: Request, res: Response) => {
         data: createdUser
     })
 });
+
+const getMyProfile = catchAsync(async (req: Request, res: Response) => {
+    const cookies = req.cookies;
+    console.log(cookies);
+});
 export const userController = {
-    createUser
+    createUser,
+    getMyProfile
 }

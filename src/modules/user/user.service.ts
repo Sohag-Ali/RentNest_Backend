@@ -43,6 +43,11 @@ const createUser = async (payload: CreateUserRequest) => {
     return createdUser;
 }
 
+const getMyProfileIntoDB = async (userId: string) => {
+
+}
+
 export const userService = {
-    createUser
+    createUser,
+    getMyProfileIntoDB
 }

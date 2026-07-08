@@ -21,4 +21,6 @@ router.post(
     userController.createUser,
 );
 
+router.get("/me", userController.getMyProfile);
+
 export const userRouter = router;
