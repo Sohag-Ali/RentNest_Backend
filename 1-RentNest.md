@@ -250,4 +250,4 @@ Design your own schema for the following tables:
 
 
 
-https://drawsql.app/teams/mdsohag-ali/diagrams/rentrest
+

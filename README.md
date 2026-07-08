@@ -27,7 +27,7 @@ RentNest enables landlords to list and manage rental properties, tenants to subm
 
 ## 🗄️ Database Design
 
-🔗 **DrawSQL Diagram:** [`<PUT_DRAWSQL_LINK_HERE>`](<PUT_DRAWSQL_LINK_HERE>)
+🔗 **DrawSQL Diagram:** [`<PUT_DRAWSQL_LINK_HERE>`](<https://drawsql.app/teams/mdsohag-ali/diagrams/rentrest>)
 
 The database is designed around six core models: **User**, **Property**, **Category**, **RentalRequest**, **Payment**, and **Review**. Relations are optimized with foreign key constraints and cascade rules. A `RentalRequest` links a `Tenant` to a `Property`, progressing through statuses (`PENDING → APPROVED → COMPLETED`). `Payment` and `Review` each have a one-to-one relationship with a `RentalRequest`, enforcing business rules at the data layer.
 
