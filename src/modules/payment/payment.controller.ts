@@ -104,25 +104,21 @@ const getPaymentById = catchAsync(async (req: Request, res: Response) => {
 
 const paymentSuccess = (req: Request, res: Response) => {
     const sessionId = req.query.session_id;
-    res.status(httpStatus.OK).send(`
-        <html>
-          <body style="font-family: sans-serif; text-align: center; padding: 50px;">
-            <h1>✅ Payment Successful</h1>
-            <p>Copy this session ID and confirm it via Postman:</p>
-            <code style="background:#eee; padding:8px; font-size:14px;">${sessionId}</code>
-          </body>
-        </html>
-    `);
+    sendResponse(res, {
+        success: true,
+        statusCode: httpStatus.OK,
+        message: "Payment successful",
+        data: { sessionId },
+    });
 };
 
 const paymentCancel = (req: Request, res: Response) => {
-    res.status(httpStatus.OK).send(`
-        <html>
-          <body style="font-family: sans-serif; text-align: center; padding: 50px;">
-            <h1>❌ Payment Cancelled</h1>
-          </body>
-        </html>
-    `);
+    sendResponse(res, {
+        success: false,
+        statusCode: httpStatus.OK,
+        message: "Payment cancelled",
+        data: null,
+    });
 };
 
 

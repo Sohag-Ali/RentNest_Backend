@@ -130,7 +130,7 @@ const createPaymentIntentIntoDB = async (tenantId: string, payload: CreatePaymen
         throw new AppError(409, "Payment already exists for this rental request");
     }
 
-    const amount = Math.round(rentalRequest.property.price * 100);
+    const amount = Math.round(rentalRequest.property.price * 1);
 
     // 👇 Checkout Session instead of raw PaymentIntent
     const session = await stripe.checkout.sessions.create({
@@ -139,9 +139,10 @@ const createPaymentIntentIntoDB = async (tenantId: string, payload: CreatePaymen
         line_items: [
             {
                 price_data: {
-                    currency: "usd",
+                    currency: "bdt",
                     product_data: {
                         name: rentalRequest.property.title,
+                        
                     },
                     unit_amount: amount,
                 },
@@ -157,8 +158,8 @@ const createPaymentIntentIntoDB = async (tenantId: string, payload: CreatePaymen
     });
 
     return {
-        url: session.url,        // 👈 এটাই ব্রাউজারে খুলবেন
-        sessionId: session.id,   // 👈 confirm করার সময় এটা লাগবে
+        url: session.url,        
+        sessionId: session.id,   
     };
 };
 
