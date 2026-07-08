@@ -30,6 +30,9 @@ const createProperty = catchAsync(async (req: Request, res: Response) => {
 
 const updateProperty = catchAsync(async (req: Request, res: Response) => {
     const currentUser = req.user;
+    const payload = req.body;
+    const propertyId = req.params.id;
+    
 
     if (!currentUser) {
         return res.status(httpStatus.UNAUTHORIZED).json({
@@ -40,10 +43,19 @@ const updateProperty = catchAsync(async (req: Request, res: Response) => {
         });
     }
 
+    if (typeof propertyId !== "string") {
+        return res.status(httpStatus.BAD_REQUEST).json({
+            success: false,
+            statusCode: httpStatus.BAD_REQUEST,
+            message: "Invalid request",
+            error: "Property ID is required",
+        });
+    }
+
     const updatedProperty = await landlordService.updatePropertyIntoDB(
         currentUser.id,
-        req.params.id,
-        req.body,
+        propertyId,
+        payload,
     );
 
     sendResponse(res, {
@@ -54,8 +66,10 @@ const updateProperty = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
+
 const deleteProperty = catchAsync(async (req: Request, res: Response) => {
     const currentUser = req.user;
+    const propertyId = req.params.id;
 
     if (!currentUser) {
         return res.status(httpStatus.UNAUTHORIZED).json({
@@ -66,7 +80,16 @@ const deleteProperty = catchAsync(async (req: Request, res: Response) => {
         });
     }
 
-    const deletedProperty = await landlordService.deletePropertyIntoDB(currentUser.id, req.params.id);
+    if (typeof propertyId !== "string") {
+        return res.status(httpStatus.BAD_REQUEST).json({
+            success: false,
+            statusCode: httpStatus.BAD_REQUEST,
+            message: "Invalid request",
+            error: "Property ID is required",
+        });
+    }
+
+    const deletedProperty = await landlordService.deletePropertyIntoDB(currentUser.id, propertyId);
 
     sendResponse(res, {
         success: true,
@@ -100,6 +123,7 @@ const getLandlordRequests = catchAsync(async (req: Request, res: Response) => {
 
 const updateRentalRequestStatus = catchAsync(async (req: Request, res: Response) => {
     const currentUser = req.user;
+    const requestId = req.params.id;
 
     if (!currentUser) {
         return res.status(httpStatus.UNAUTHORIZED).json({
@@ -110,9 +134,18 @@ const updateRentalRequestStatus = catchAsync(async (req: Request, res: Response)
         });
     }
 
+    if (typeof requestId !== "string") {
+        return res.status(httpStatus.BAD_REQUEST).json({
+            success: false,
+            statusCode: httpStatus.BAD_REQUEST,
+            message: "Invalid request",
+            error: "Request ID is required",
+        });
+    }
+
     const updatedRequest = await landlordService.updateRentalRequestStatusIntoDB(
         currentUser.id,
-        req.params.id,
+        requestId,
         req.body,
     );
 

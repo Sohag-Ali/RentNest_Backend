@@ -38,10 +38,11 @@ const createLandlordPropertyFields = {
 };
 
 const updateLandlordPropertyFields = {
-    categoryId: z
-        .string({ error: "Category ID must be a string" })
+    categoryName: z
+        .string({ error: "Category name must be a string" })
         .trim()
-        .uuid("Category ID must be a valid UUID"),
+        .min(1, "Category name is required")
+        .max(100, "Category name must not exceed 100 characters"),
     title: createLandlordPropertyFields.title,
     description: createLandlordPropertyFields.description,
     location: createLandlordPropertyFields.location,

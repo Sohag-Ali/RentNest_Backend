@@ -93,21 +93,6 @@ const getOrCreateCategoryByName = async (categoryName: string) => {
     });
 };
 
-const ensurePropertyCategoryExists = async (categoryId: string) => {
-    const category = await prisma.category.findUnique({
-        where: {
-            id: categoryId,
-        },
-        select: {
-            id: true,
-        },
-    });
-
-    if (!category) {
-        throw new Error("Category not found");
-    }
-};
-
 const ensureLandlordPropertyExists = async (propertyId: string, landlordId: string) => {
     const property = await prisma.property.findFirst({
         where: {
@@ -150,16 +135,19 @@ const updatePropertyIntoDB = async (
 ) => {
     await ensureLandlordPropertyExists(propertyId, landlordId);
 
-    if (payload.categoryId) {
-        await ensurePropertyCategoryExists(payload.categoryId);
+    let categoryId: string | undefined;
+
+    if (payload.categoryName) {
+        const category = await getOrCreateCategoryByName(payload.categoryName);
+        categoryId = category.id;
     }
 
-    return prisma.property.update({
+    const result = await prisma.property.update({
         where: {
             id: propertyId,
         },
         data: {
-            ...(payload.categoryId ? { categoryId: payload.categoryId } : {}),
+            ...(categoryId ? { categoryId } : {}),
             ...(payload.title ? { title: payload.title } : {}),
             ...(payload.description ? { description: payload.description } : {}),
             ...(payload.location ? { location: payload.location } : {}),
@@ -169,6 +157,7 @@ const updatePropertyIntoDB = async (
         },
         select: propertySelect,
     });
+    return result;
 };
 
 const deletePropertyIntoDB = async (landlordId: string, propertyId: string) => {

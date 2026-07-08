@@ -10,7 +10,7 @@ export type CreateLandlordPropertyInput = {
 
 
 export type UpdateLandlordPropertyInput = {
-    categoryId?: string;
+    categoryName?: string;
     title?: string;
     description?: string;
     location?: string;
