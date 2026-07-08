@@ -49,6 +49,7 @@ export type PaymentProvider = (typeof PaymentProvider)[keyof typeof PaymentProvi
 
 export const PaymentStatus = {
   PENDING: 'PENDING',
+  PAID: 'PAID',
   COMPLETED: 'COMPLETED',
   FAILED: 'FAILED',
   REFUNDED: 'REFUNDED'
