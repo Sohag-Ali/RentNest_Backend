@@ -9,6 +9,9 @@ import { Role } from "../generated/prisma/enums";
 import { userRouter } from "./modules/user/user.route";
 import { authRouter } from "./modules/auth/auth.route";
 import { landlordRouter } from "./modules/landlord/landlord.route";
+import { rentalRouter } from "./modules/rental/rental.route";
+import { notFound } from "./middlewares/notFound";
+import { globalErrorHandler } from "./middlewares/globalErrorHandler";
 
 const app: Application = express();
 
@@ -32,6 +35,11 @@ app.use("/api/auth", userRouter);
 app.use("/api/auth", authRouter);
 
 app.use("/api/landlord", landlordRouter);
+
+app.use("/api/rentals", rentalRouter);
+
+app.use(notFound);
+app.use(globalErrorHandler);
 
 
 
