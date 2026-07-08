@@ -5,4 +5,4 @@ const router = Router();
 
 router.get("/", categoryController.getCategories);
 
-export const categoryRouter = router;
+export const categoriesRouter = router;

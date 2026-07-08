@@ -11,9 +11,10 @@ import { authRouter } from "./modules/auth/auth.route";
 import { landlordRouter } from "./modules/landlord/landlord.route";
 import { rentalRouter } from "./modules/rental/rental.route";
 import { propertyRouter } from "./modules/property/property.route";
-import { categoryRouter } from "./modules/category/category.route";
+
 import { notFound } from "./middlewares/notFound";
 import { globalErrorHandler } from "./middlewares/globalErrorHandler";
+import { categoriesRouter } from "./modules/category/category.route";
 
 const app: Application = express();
 
@@ -42,7 +43,7 @@ app.use("/api/rentals", rentalRouter);
 
 app.use("/api/properties", propertyRouter);
 
-app.use("/api/categories", categoryRouter);
+app.use("/api/categories", categoriesRouter);
 
 app.use(notFound);
 app.use(globalErrorHandler);

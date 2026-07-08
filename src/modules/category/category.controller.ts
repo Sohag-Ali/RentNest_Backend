@@ -10,7 +10,7 @@ const getCategories = catchAsync(async (req: Request, res: Response) => {
     sendResponse(res, {
         success: true,
         statusCode: httpStatus.OK,
-        message: "Categories fetched successfully",
+        message: "Find Categories successfully",
         data: categories,
     });
 });
