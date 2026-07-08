@@ -14,9 +14,9 @@ const assignValidatedData = (
     }
 
     if (source === "query") {
-        req.query = data as Request["query"];
-        return;
-    }
+    Object.assign(req.query, data);
+    return;
+}
 
     req.params = data as Request["params"];
 };
