@@ -20,10 +20,14 @@ RentNest enables landlords to list and manage rental properties, tenants to subm
 
 | Resource        | URL                                      |
 | --------------- | ---------------------------------------- |
-| 🚀 Server       | `<SERVER_URL>`                           |
-| 🔗 API Base URL | `<SERVER_URL>/api`                       |
+| 🚀 Server       | `<https://rentnest-backend-ezd1.onrender.com>`                           |
+| 🔗 API Base URL | `<https://rentnest-backend-ezd1.onrender.com>api/properties`                       |
 
 ---
+
+## 🗄️ Postman Design
+
+🔗 **Postman Database:** [`<Postman_LINK_HERE>`](<https://sohag2879-8553138.postman.co/workspace/a92f7fbc-5501-4be6-8626-bef17a63d48c/collection/54817904-51f11064-5cfa-4345-bf08-3731efdce620?action=share&source=copy-link&creator=54817904>)
 
 ## 🗄️ Database Design
 

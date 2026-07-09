@@ -1,0 +1,704 @@
+{
+  "info": {
+    "_postman_id": "51f11064-5cfa-4345-bf08-3731efdce620",
+    "name": "RentRest",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "54817904",
+    "_collection_link": "https://go.postman.co/collection/54817904-51f11064-5cfa-4345-bf08-3731efdce620?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Admin\",\r\n   \"email\": \"admin@gmail.com\",\r\n  \"password\": \"Admin@123\",\r\n  \"phone\": \"01728918054\",\r\n  \"role\": \"LANDLORD\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://rentnest-backend-ezd1.onrender.com/api/auth/register",
+              "protocol": "https",
+              "host": [
+                "rentnest-backend-ezd1",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "me",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://rentnest-backend-ezd1.onrender.com/api/auth/me",
+              "protocol": "https",
+              "host": [
+                "rentnest-backend-ezd1",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "me"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"admin@gmail.com\",\r\n  \"password\": \"Admin@123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://rentnest-backend-ezd1.onrender.com/api/auth/login",
+              "protocol": "https",
+              "host": [
+                "rentnest-backend-ezd1",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "landload",
+      "item": [
+        {
+          "name": "post property",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"categoryName\": \"Villa\",\r\n  \"title\": \"Luxury Hill View Villa\",\r\n  \"description\": \"Premium villa with breathtaking hill views and modern amenities.\",\r\n  \"location\": \"Bandarban\",\r\n  \"price\": 90000,\r\n  \"amenities\": [\"Swimming Pool\", \"Gym\", \"WiFi\", \"Parking\", \"Garden\"],\r\n  \"isAvailable\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://rentnest-backend-ezd1.onrender.com/api/landlord/properties",
+              "protocol": "https",
+              "host": [
+                "rentnest-backend-ezd1",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "landlord",
+                "properties"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Porperty",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"categoryName\": \"Villa\",\r\n  \"title\": \"Luxury Hill View Villa\",\r\n  \"description\": \"Premium villa with breathtaking hill views and modern amenities.\",\r\n  \"location\": \"Bandarban\",\r\n  \"price\": 90000,\r\n  \"amenities\": [\"Swimming Pool\", \"Gym\", \"WiFi\", \"Parking\", \"Garden\", \"Air Conditional\"],\r\n  \"isAvailable\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://rentnest-backend-ezd1.onrender.com/api/landlord/properties/a6772423-bed6-469a-900f-522d2027673c",
+              "protocol": "https",
+              "host": [
+                "rentnest-backend-ezd1",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "landlord",
+                "properties",
+                "a6772423-bed6-469a-900f-522d2027673c"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Remove Poperty",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://rentnest-backend-ezd1.onrender.com/api/landlord/properties/d0012f80-24bd-4cf8-be23-e460fecf03f8",
+              "protocol": "https",
+              "host": [
+                "rentnest-backend-ezd1",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "landlord",
+                "properties",
+                "d0012f80-24bd-4cf8-be23-e460fecf03f8"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "patch request property",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"status\": \"APPROVED\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://rentnest-backend-ezd1.onrender.com/api/landlord/requests/f4ccf980-3bb9-4e20-9f3b-e17caede3e8c",
+              "protocol": "https",
+              "host": [
+                "rentnest-backend-ezd1",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "landlord",
+                "requests",
+                "f4ccf980-3bb9-4e20-9f3b-e17caede3e8c"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "request property get",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://rentnest-backend-ezd1.onrender.com/api/landlord/requests",
+              "protocol": "https",
+              "host": [
+                "rentnest-backend-ezd1",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "landlord",
+                "requests"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Rentals",
+      "item": [
+        {
+          "name": "create request",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"propertyId\": \"60bc7fd7-68be-4069-907f-5d236657ddea\",\r\n  \"moveInDate\": \"2026-08-01\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://rentnest-backend-ezd1.onrender.com/api/rentals",
+              "protocol": "https",
+              "host": [
+                "rentnest-backend-ezd1",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "rentals"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get renatals",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"propertyId\": \"6eef4ba6-745a-4ff6-8b32-a9dfe18e6bd6\",\r\n  \"moveInDate\": \"2026-08-01\"\r\n}"
+            },
+            "url": {
+              "raw": "https://rentnest-backend-ezd1.onrender.com/api/rentals",
+              "protocol": "https",
+              "host": [
+                "rentnest-backend-ezd1",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "rentals"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "details rental requested property",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"propertyId\": \"6eef4ba6-745a-4ff6-8b32-a9dfe18e6bd6\",\r\n  \"moveInDate\": \"2026-08-01\"\r\n}"
+            },
+            "url": {
+              "raw": "https://rentnest-backend-ezd1.onrender.com/api/rentals/3efde58b-355b-42cd-a174-d4752fd8d098",
+              "protocol": "https",
+              "host": [
+                "rentnest-backend-ezd1",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "rentals",
+                "3efde58b-355b-42cd-a174-d4752fd8d098"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "properties",
+      "item": [
+        {
+          "name": "get poperty",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"propertyId\": \"6eef4ba6-745a-4ff6-8b32-a9dfe18e6bd6\",\r\n  \"moveInDate\": \"2026-08-01\"\r\n}"
+            },
+            "url": {
+              "raw": "https://rentnest-backend-ezd1.onrender.com/api/properties?minPrice=20000&maxPrice=50000",
+              "protocol": "https",
+              "host": [
+                "rentnest-backend-ezd1",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "properties"
+              ],
+              "query": [
+                {
+                  "key": "minPrice",
+                  "value": "20000"
+                },
+                {
+                  "key": "maxPrice",
+                  "value": "50000"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "details property public",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://rentnest-backend-ezd1.onrender.com/api/properties/14fc9659-c673-457d-b814-4357fa56de54",
+              "protocol": "https",
+              "host": [
+                "rentnest-backend-ezd1",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "properties",
+                "14fc9659-c673-457d-b814-4357fa56de54"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get cetegory",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://rentnest-backend-ezd1.onrender.com/api/categories",
+              "protocol": "https",
+              "host": [
+                "rentnest-backend-ezd1",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "categories"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Admin",
+      "item": [
+        {
+          "name": "get users",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\" : \"sohag@gmail.com\",\r\n    \"password\" : \"123456\"\r\n}"
+            },
+            "url": {
+              "raw": "https://rentnest-backend-ezd1.onrender.com/api/admin/users",
+              "protocol": "https",
+              "host": [
+                "rentnest-backend-ezd1",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update user ststus",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"status\": \"BANNED\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://rentnest-backend-ezd1.onrender.com/api/admin/users/151f0758-6542-44f5-8f5e-463ca19bcf7e",
+              "protocol": "https",
+              "host": [
+                "rentnest-backend-ezd1",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "users",
+                "151f0758-6542-44f5-8f5e-463ca19bcf7e"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get admin property",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\" : \"sohag@gmail.com\",\r\n    \"password\" : \"123456\"\r\n}"
+            },
+            "url": {
+              "raw": "https://rentnest-backend-ezd1.onrender.com/api/admin/properties",
+              "protocol": "https",
+              "host": [
+                "rentnest-backend-ezd1",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "properties"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get admin all rentals",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\" : \"sohag@gmail.com\",\r\n    \"password\" : \"123456\"\r\n}"
+            },
+            "url": {
+              "raw": "https://rentnest-backend-ezd1.onrender.com/api/admin/rentals",
+              "protocol": "https",
+              "host": [
+                "rentnest-backend-ezd1",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "rentals"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Payment",
+      "item": [
+        {
+          "name": "create payment",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"rentalRequestId\": \"af0de7c0-244f-4c87-8aa7-b34ce8244ef9\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://rentnest-backend-ezd1.onrender.com/api/payments/create",
+              "protocol": "https",
+              "host": [
+                "rentnest-backend-ezd1",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "payments",
+                "create"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "confrim payment",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "\r\n{\r\n     \"sessionId\": \"cs_test_a1NjGqU22l4LtVaxWcXpxrQ87clqwICoWX9P2gtFkgWo2FJYZqXc5ca988\",\r\n     \"rentalRequestId\": \"af0de7c0-244f-4c87-8aa7-b34ce8244ef9\"\r\n   }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://rentnest-backend-ezd1.onrender.com/api/payments/confirm",
+              "protocol": "https",
+              "host": [
+                "rentnest-backend-ezd1",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "payments",
+                "confirm"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get payment",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "\r\n{\r\n     \"sessionId\": \"cs_test_a1XjTaQMbHGHCngTX8wrhRDCdsHZAWPEHBi7A1fRTydCpoZ9Hmr0sVTXyp\",\r\n     \"rentalRequestId\": \"21996e26-728b-451f-a64d-51d8dfdb9abd\"\r\n   }"
+            },
+            "url": {
+              "raw": "https://rentnest-backend-ezd1.onrender.com/api/payments",
+              "protocol": "https",
+              "host": [
+                "rentnest-backend-ezd1",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "payments"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get payment details",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://rentnest-backend-ezd1.onrender.com/api/payments/72dd24f1-e7b9-47ea-99d7-ab2240cb7d43",
+              "protocol": "https",
+              "host": [
+                "rentnest-backend-ezd1",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "payments",
+                "72dd24f1-e7b9-47ea-99d7-ab2240cb7d43"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Review",
+      "item": [
+        {
+          "name": "New Request",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "\r\n{\r\n  \"rentalRequestId\":\"af0de7c0-244f-4c87-8aa7-b34ce8244ef9\",\r\n  \"rating\":5,\r\n  \"comment\":\"Excellent apartment with facilities.\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://rentnest-backend-ezd1.onrender.com/api/reviews",
+              "protocol": "https",
+              "host": [
+                "rentnest-backend-ezd1",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "reviews"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
