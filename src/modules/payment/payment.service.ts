@@ -131,7 +131,7 @@ const createPaymentIntentIntoDB = async (tenantId: string, payload: CreatePaymen
         throw new AppError(409, "Payment already exists for this rental request");
     }
 
-    const amount = Math.round(rentalRequest.property.price * 1);
+    const amount = Math.round(rentalRequest.property.price * 100);
 
     const session = await stripe.checkout.sessions.create({
         mode: "payment",
