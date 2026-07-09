@@ -10,7 +10,7 @@ const getUsers = catchAsync(async (req: Request, res: Response) => {
     sendResponse(res, {
         success: true,
         statusCode: httpStatus.OK,
-        message: "Users fetched successfully",
+        message: "All Users retrieved successfully",
         data: result.data,
         meta: result.meta,
     });
@@ -18,6 +18,7 @@ const getUsers = catchAsync(async (req: Request, res: Response) => {
 
 const updateUserStatus = catchAsync(async (req: Request, res: Response) => {
     const currentUser = req.user;
+    const userIdToUpdate = req.params.id;
 
     if (!currentUser) {
         return res.status(httpStatus.UNAUTHORIZED).json({
@@ -28,7 +29,7 @@ const updateUserStatus = catchAsync(async (req: Request, res: Response) => {
         });
     }
 
-    const updatedUser = await adminService.updateUserStatusIntoDB(currentUser.id, req.params.id, req.body);
+    const updatedUser = await adminService.updateUserStatusIntoDB(currentUser.id, userIdToUpdate as string, req.body);
 
     sendResponse(res, {
         success: true,
@@ -44,7 +45,7 @@ const getProperties = catchAsync(async (req: Request, res: Response) => {
     sendResponse(res, {
         success: true,
         statusCode: httpStatus.OK,
-        message: "Properties fetched successfully",
+        message: "All Properties retrieved successfully",
         data: result.data,
         meta: result.meta,
     });
@@ -56,7 +57,7 @@ const getRentals = catchAsync(async (req: Request, res: Response) => {
     sendResponse(res, {
         success: true,
         statusCode: httpStatus.OK,
-        message: "Rentals fetched successfully",
+        message: "All Rentals retrieved successfully",
         data: result.data,
         meta: result.meta,
     });

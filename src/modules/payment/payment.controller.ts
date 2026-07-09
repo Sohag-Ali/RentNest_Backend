@@ -21,7 +21,7 @@ const createPayment = catchAsync(async (req: Request, res: Response) => {
     sendResponse(res, {
         success: true,
         statusCode: httpStatus.CREATED,
-        message: "Payment intent created successfully",
+        message: "Payment created successfully",
         data: result,
     });
 });
@@ -65,7 +65,7 @@ const getMyPayments = catchAsync(async (req: Request, res: Response) => {
     sendResponse(res, {
         success: true,
         statusCode: httpStatus.OK,
-        message: "Payment history fetched successfully",
+        message: "Payment history successfully fetched",
         data: payments,
     });
 });
@@ -97,7 +97,7 @@ const getPaymentById = catchAsync(async (req: Request, res: Response) => {
     sendResponse(res, {
         success: true,
         statusCode: httpStatus.OK,
-        message: "Payment details fetched successfully",
+        message: "Payment details successfully fetched",
         data: payment,
     });
 });

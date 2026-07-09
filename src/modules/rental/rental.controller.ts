@@ -43,7 +43,7 @@ const getMyRentalRequests = catchAsync(async (req: Request, res: Response) => {
     sendResponse(res, {
         success: true,
         statusCode: httpStatus.OK,
-        message: "Rental requests fetched successfully",
+        message: "Rental all requests fetched successfully",
         data: rentalRequests,
     });
 });
@@ -75,7 +75,7 @@ const getRentalRequestById = catchAsync(async (req: Request, res: Response) => {
     sendResponse(res, {
         success: true,
         statusCode: httpStatus.OK,
-        message: "Rental request fetched successfully",
+        message: "Tenant Rental request property retrieved successfully",
         data: rentalRequest,
     });
 });

@@ -11,7 +11,7 @@ const getProperties = catchAsync(async (req: Request, res: Response) => {
     sendResponse(res, {
         success: true,
         statusCode: httpStatus.OK,
-        message: "Properties fetched successfully",
+        message: "Properties retrieved successfully",
         data: result.data,
         meta: result.meta,
     });
@@ -24,7 +24,7 @@ const getPropertyById = catchAsync(async (req: Request, res: Response) => {
     sendResponse(res, {
         success: true,
         statusCode: httpStatus.OK,
-        message: "Property fetched successfully",
+        message: "Property retrieved successfully",
         data: property,
     });
 });
