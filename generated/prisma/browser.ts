@@ -28,6 +28,11 @@ export type Category = Prisma.CategoryModel
  */
 export type Payment = Prisma.PaymentModel
 /**
+ * Model Property
+ * 
+ */
+export type Property = Prisma.PropertyModel
+/**
  * Model RentalRequest
  * 
  */
@@ -37,11 +42,6 @@ export type RentalRequest = Prisma.RentalRequestModel
  * 
  */
 export type Review = Prisma.ReviewModel
-/**
- * Model Property
- * 
- */
-export type Property = Prisma.PropertyModel
 /**
  * Model User
  * 

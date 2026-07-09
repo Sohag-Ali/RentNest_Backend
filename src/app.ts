@@ -2,10 +2,6 @@ import cookieParser from "cookie-parser";
 import express, { Application, Request, Response } from "express";
 import config from "./config";
 import cors from "cors";
-import httpStatus from "http-status";
-import { prisma } from "./lib/prisma";
-import bcrypt from "bcrypt";
-import { Role } from "../generated/prisma/enums";
 import { userRouter } from "./modules/user/user.route";
 import { authRouter } from "./modules/auth/auth.route";
 import { landlordRouter } from "./modules/landlord/landlord.route";
@@ -13,8 +9,7 @@ import { rentalRouter } from "./modules/rental/rental.route";
 import { propertyRouter } from "./modules/property/property.route";
 import { adminRouter } from "./modules/admin/admin.route";
 import { paymentRouter } from "./modules/payment/payment.route";
-import { reviewRouter } from "./modules/review/review.route";
-
+import { reviewRouter } from "./modules/review/review.route"; 
 import { notFound } from "./middlewares/notFound";
 import { globalErrorHandler } from "./middlewares/globalErrorHandler";
 import { categoriesRouter } from "./modules/category/category.route";
@@ -32,7 +27,7 @@ app.use(cookieParser());
 
 
 app.get("/", (req: Request, res: Response) => {
-    res.send("Hello, World!");
+    res.send("Welcome To My RentNest Backend Website");
 });
 
 

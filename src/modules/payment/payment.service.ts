@@ -1,4 +1,5 @@
 import { PaymentProvider, PaymentStatus, RentalStatus } from "../../../generated/prisma/enums";
+import config from "../../config";
 import { prisma } from "../../lib/prisma";
 import { AppError } from "../../utils/AppError";
 import { PAYMENT_PROVIDER, stripe } from "./payment.constant";
@@ -132,7 +133,6 @@ const createPaymentIntentIntoDB = async (tenantId: string, payload: CreatePaymen
 
     const amount = Math.round(rentalRequest.property.price * 1);
 
-    // 👇 Checkout Session instead of raw PaymentIntent
     const session = await stripe.checkout.sessions.create({
         mode: "payment",
         payment_method_types: ["card"],
@@ -153,8 +153,8 @@ const createPaymentIntentIntoDB = async (tenantId: string, payload: CreatePaymen
             rentalRequestId: payload.rentalRequestId,
             tenantId,
         },
-        success_url: "http://localhost:5000/api/payments/success?session_id={CHECKOUT_SESSION_ID}",
-        cancel_url: "http://localhost:5000/api/payments/cancel",
+        success_url: `${config.app_url}/api/payments/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${config.app_url}/api/payments/cancel`,
     });
 
     return {
