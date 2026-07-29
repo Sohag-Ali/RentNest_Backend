@@ -90,6 +90,8 @@ const refreshToken = async (refreshToken : string) => {
         config.jwt_access_expiration as SignOptions
     );
 
+    
+
     return {accessToken}
 }
 
