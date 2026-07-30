@@ -384,6 +384,7 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 
 export const ModelName = {
+  PropertyOverview: 'PropertyOverview',
   Category: 'Category',
   Payment: 'Payment',
   Property: 'Property',
@@ -405,10 +406,84 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "category" | "payment" | "property" | "rentalRequest" | "review" | "user"
+    modelProps: "propertyOverview" | "category" | "payment" | "property" | "rentalRequest" | "review" | "user"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
+    PropertyOverview: {
+      payload: Prisma.$PropertyOverviewPayload<ExtArgs>
+      fields: Prisma.PropertyOverviewFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PropertyOverviewFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PropertyOverviewPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PropertyOverviewFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PropertyOverviewPayload>
+        }
+        findFirst: {
+          args: Prisma.PropertyOverviewFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PropertyOverviewPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PropertyOverviewFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PropertyOverviewPayload>
+        }
+        findMany: {
+          args: Prisma.PropertyOverviewFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PropertyOverviewPayload>[]
+        }
+        create: {
+          args: Prisma.PropertyOverviewCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PropertyOverviewPayload>
+        }
+        createMany: {
+          args: Prisma.PropertyOverviewCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PropertyOverviewCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PropertyOverviewPayload>[]
+        }
+        delete: {
+          args: Prisma.PropertyOverviewDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PropertyOverviewPayload>
+        }
+        update: {
+          args: Prisma.PropertyOverviewUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PropertyOverviewPayload>
+        }
+        deleteMany: {
+          args: Prisma.PropertyOverviewDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PropertyOverviewUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PropertyOverviewUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PropertyOverviewPayload>[]
+        }
+        upsert: {
+          args: Prisma.PropertyOverviewUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PropertyOverviewPayload>
+        }
+        aggregate: {
+          args: Prisma.PropertyOverviewAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePropertyOverview>
+        }
+        groupBy: {
+          args: Prisma.PropertyOverviewGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PropertyOverviewGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PropertyOverviewCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PropertyOverviewCountAggregateOutputType> | number
+        }
+      }
+    }
     Category: {
       payload: Prisma.$CategoryPayload<ExtArgs>
       fields: Prisma.CategoryFieldRefs
@@ -892,6 +967,25 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+export const PropertyOverviewScalarFieldEnum = {
+  id: 'id',
+  propertyId: 'propertyId',
+  address: 'address',
+  city: 'city',
+  state: 'state',
+  zipCode: 'zipCode',
+  availableFrom: 'availableFrom',
+  status: 'status',
+  yearBuilt: 'yearBuilt',
+  depositAmount: 'depositAmount',
+  leaseTerm: 'leaseTerm',
+  petPolicy: 'petPolicy',
+  parkingType: 'parkingType'
+} as const
+
+export type PropertyOverviewScalarFieldEnum = (typeof PropertyOverviewScalarFieldEnum)[keyof typeof PropertyOverviewScalarFieldEnum]
+
+
 export const CategoryScalarFieldEnum = {
   id: 'id',
   name: 'name'
@@ -917,15 +1011,28 @@ export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeo
 
 export const PropertyScalarFieldEnum = {
   id: 'id',
-  landlordId: 'landlordId',
-  categoryId: 'categoryId',
   title: 'title',
+  slug: 'slug',
   description: 'description',
+  detailedDescription: 'detailedDescription',
   location: 'location',
+  city: 'city',
+  state: 'state',
   price: 'price',
-  amenities: 'amenities',
+  bedrooms: 'bedrooms',
+  bathrooms: 'bathrooms',
+  areaSqFt: 'areaSqFt',
+  rating: 'rating',
+  reviewCount: 'reviewCount',
+  isFeatured: 'isFeatured',
   isAvailable: 'isAvailable',
-  createdAt: 'createdAt'
+  mainImage: 'mainImage',
+  images: 'images',
+  amenities: 'amenities',
+  categoryId: 'categoryId',
+  landlordId: 'landlordId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type PropertyScalarFieldEnum = (typeof PropertyScalarFieldEnum)[keyof typeof PropertyScalarFieldEnum]
@@ -961,6 +1068,26 @@ export const UserScalarFieldEnum = {
   name: 'name',
   email: 'email',
   password: 'password',
+  avatar: 'avatar',
+  phone: 'phone',
+  bio: 'bio',
+  gender: 'gender',
+  dateOfBirth: 'dateOfBirth',
+  occupation: 'occupation',
+  address: 'address',
+  city: 'city',
+  state: 'state',
+  country: 'country',
+  zipCode: 'zipCode',
+  website: 'website',
+  github: 'github',
+  linkedin: 'linkedin',
+  facebook: 'facebook',
+  isSuperhost: 'isSuperhost',
+  isVerified: 'isVerified',
+  rating: 'rating',
+  responseRate: 'responseRate',
+  responseTime: 'responseTime',
   role: 'role',
   status: 'status',
   createdAt: 'createdAt',
@@ -1011,6 +1138,20 @@ export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 
  * Reference to a field of type 'String[]'
  */
 export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Int'
+ */
+export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+/**
+ * Reference to a field of type 'Int[]'
+ */
+export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
 
 
@@ -1092,16 +1233,16 @@ export type ListEnumRentalStatusFieldRefInput<$PrismaModel> = FieldRefInputType<
 
 
 /**
- * Reference to a field of type 'Int'
+ * Reference to a field of type 'Gender'
  */
-export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+export type EnumGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Gender'>
     
 
 
 /**
- * Reference to a field of type 'Int[]'
+ * Reference to a field of type 'Gender[]'
  */
-export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+export type ListEnumGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Gender[]'>
     
 
 
@@ -1242,6 +1383,7 @@ export type PrismaClientOptions = ({
   queryPlanCacheMaxSize?: number
 }
 export type GlobalOmitConfig = {
+  propertyOverview?: Prisma.PropertyOverviewOmit
   category?: Prisma.CategoryOmit
   payment?: Prisma.PaymentOmit
   property?: Prisma.PropertyOmit

@@ -1,0 +1,28 @@
+model PropertyOverview {
+  id              String @id @default(uuid())
+
+  propertyId      String @unique
+  property        Property @relation(fields:[propertyId],references:[id])
+
+  address         String
+
+  city            String
+
+  state           String
+
+  zipCode         String
+
+  availableFrom   String
+
+  status          String
+
+  yearBuilt       Int
+
+  depositAmount   Float
+
+  leaseTerm       String
+
+  petPolicy       String
+
+  parkingType     String
+}

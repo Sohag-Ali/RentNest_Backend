@@ -8,6 +8,7 @@
  *
  * 🟢 You can import this file directly.
  */
+export type * from './models/PropertyOverview'
 export type * from './models/Category'
 export type * from './models/Payment'
 export type * from './models/Property'

@@ -12,6 +12,12 @@ enum UserStatus {
   BANNED
 }
 
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
 enum RentalStatus {
   PENDING
   APPROVED

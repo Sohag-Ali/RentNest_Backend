@@ -1,24 +1,9 @@
-export type CreateLandlordPropertyInput = {
-    categoryName: string;
-    title: string;
-    description: string;
-    location: string;
-    price: number;
-    amenities?: string[];
-    isAvailable?: boolean;
-};
+import { CreatePropertyInput } from "../property/property.interface";
 
+export type CreateLandlordPropertyInput = CreatePropertyInput;
 
-export type UpdateLandlordPropertyInput = {
-    categoryName?: string;
-    title?: string;
-    description?: string;
-    location?: string;
-    price?: number;
-    amenities?: string[];
-    isAvailable?: boolean;
-};
+export type UpdateLandlordPropertyInput = Partial<CreatePropertyInput>;
 
 export type UpdateRentalRequestStatusInput = {
-    status: "APPROVED" | "REJECTED";
+  status: "APPROVED" | "REJECTED";
 };

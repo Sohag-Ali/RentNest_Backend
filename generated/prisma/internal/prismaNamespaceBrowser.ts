@@ -51,6 +51,7 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
+  PropertyOverview: 'PropertyOverview',
   Category: 'Category',
   Payment: 'Payment',
   Property: 'Property',
@@ -73,6 +74,25 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 } as const)
 
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
+
+
+export const PropertyOverviewScalarFieldEnum = {
+  id: 'id',
+  propertyId: 'propertyId',
+  address: 'address',
+  city: 'city',
+  state: 'state',
+  zipCode: 'zipCode',
+  availableFrom: 'availableFrom',
+  status: 'status',
+  yearBuilt: 'yearBuilt',
+  depositAmount: 'depositAmount',
+  leaseTerm: 'leaseTerm',
+  petPolicy: 'petPolicy',
+  parkingType: 'parkingType'
+} as const
+
+export type PropertyOverviewScalarFieldEnum = (typeof PropertyOverviewScalarFieldEnum)[keyof typeof PropertyOverviewScalarFieldEnum]
 
 
 export const CategoryScalarFieldEnum = {
@@ -100,15 +120,28 @@ export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeo
 
 export const PropertyScalarFieldEnum = {
   id: 'id',
-  landlordId: 'landlordId',
-  categoryId: 'categoryId',
   title: 'title',
+  slug: 'slug',
   description: 'description',
+  detailedDescription: 'detailedDescription',
   location: 'location',
+  city: 'city',
+  state: 'state',
   price: 'price',
-  amenities: 'amenities',
+  bedrooms: 'bedrooms',
+  bathrooms: 'bathrooms',
+  areaSqFt: 'areaSqFt',
+  rating: 'rating',
+  reviewCount: 'reviewCount',
+  isFeatured: 'isFeatured',
   isAvailable: 'isAvailable',
-  createdAt: 'createdAt'
+  mainImage: 'mainImage',
+  images: 'images',
+  amenities: 'amenities',
+  categoryId: 'categoryId',
+  landlordId: 'landlordId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type PropertyScalarFieldEnum = (typeof PropertyScalarFieldEnum)[keyof typeof PropertyScalarFieldEnum]
@@ -144,6 +177,26 @@ export const UserScalarFieldEnum = {
   name: 'name',
   email: 'email',
   password: 'password',
+  avatar: 'avatar',
+  phone: 'phone',
+  bio: 'bio',
+  gender: 'gender',
+  dateOfBirth: 'dateOfBirth',
+  occupation: 'occupation',
+  address: 'address',
+  city: 'city',
+  state: 'state',
+  country: 'country',
+  zipCode: 'zipCode',
+  website: 'website',
+  github: 'github',
+  linkedin: 'linkedin',
+  facebook: 'facebook',
+  isSuperhost: 'isSuperhost',
+  isVerified: 'isVerified',
+  rating: 'rating',
+  responseRate: 'responseRate',
+  responseTime: 'responseTime',
   role: 'role',
   status: 'status',
   createdAt: 'createdAt',

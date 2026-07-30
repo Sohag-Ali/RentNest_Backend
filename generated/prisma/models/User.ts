@@ -20,8 +20,18 @@ export type UserModel = runtime.Types.Result.DefaultSelection<Prisma.$UserPayloa
 
 export type AggregateUser = {
   _count: UserCountAggregateOutputType | null
+  _avg: UserAvgAggregateOutputType | null
+  _sum: UserSumAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
+}
+
+export type UserAvgAggregateOutputType = {
+  rating: number | null
+}
+
+export type UserSumAggregateOutputType = {
+  rating: number | null
 }
 
 export type UserMinAggregateOutputType = {
@@ -29,6 +39,26 @@ export type UserMinAggregateOutputType = {
   name: string | null
   email: string | null
   password: string | null
+  avatar: string | null
+  phone: string | null
+  bio: string | null
+  gender: $Enums.Gender | null
+  dateOfBirth: Date | null
+  occupation: string | null
+  address: string | null
+  city: string | null
+  state: string | null
+  country: string | null
+  zipCode: string | null
+  website: string | null
+  github: string | null
+  linkedin: string | null
+  facebook: string | null
+  isSuperhost: boolean | null
+  isVerified: boolean | null
+  rating: number | null
+  responseRate: string | null
+  responseTime: string | null
   role: $Enums.Role | null
   status: $Enums.UserStatus | null
   createdAt: Date | null
@@ -40,6 +70,26 @@ export type UserMaxAggregateOutputType = {
   name: string | null
   email: string | null
   password: string | null
+  avatar: string | null
+  phone: string | null
+  bio: string | null
+  gender: $Enums.Gender | null
+  dateOfBirth: Date | null
+  occupation: string | null
+  address: string | null
+  city: string | null
+  state: string | null
+  country: string | null
+  zipCode: string | null
+  website: string | null
+  github: string | null
+  linkedin: string | null
+  facebook: string | null
+  isSuperhost: boolean | null
+  isVerified: boolean | null
+  rating: number | null
+  responseRate: string | null
+  responseTime: string | null
   role: $Enums.Role | null
   status: $Enums.UserStatus | null
   createdAt: Date | null
@@ -51,6 +101,26 @@ export type UserCountAggregateOutputType = {
   name: number
   email: number
   password: number
+  avatar: number
+  phone: number
+  bio: number
+  gender: number
+  dateOfBirth: number
+  occupation: number
+  address: number
+  city: number
+  state: number
+  country: number
+  zipCode: number
+  website: number
+  github: number
+  linkedin: number
+  facebook: number
+  isSuperhost: number
+  isVerified: number
+  rating: number
+  responseRate: number
+  responseTime: number
   role: number
   status: number
   createdAt: number
@@ -59,11 +129,39 @@ export type UserCountAggregateOutputType = {
 }
 
 
+export type UserAvgAggregateInputType = {
+  rating?: true
+}
+
+export type UserSumAggregateInputType = {
+  rating?: true
+}
+
 export type UserMinAggregateInputType = {
   id?: true
   name?: true
   email?: true
   password?: true
+  avatar?: true
+  phone?: true
+  bio?: true
+  gender?: true
+  dateOfBirth?: true
+  occupation?: true
+  address?: true
+  city?: true
+  state?: true
+  country?: true
+  zipCode?: true
+  website?: true
+  github?: true
+  linkedin?: true
+  facebook?: true
+  isSuperhost?: true
+  isVerified?: true
+  rating?: true
+  responseRate?: true
+  responseTime?: true
   role?: true
   status?: true
   createdAt?: true
@@ -75,6 +173,26 @@ export type UserMaxAggregateInputType = {
   name?: true
   email?: true
   password?: true
+  avatar?: true
+  phone?: true
+  bio?: true
+  gender?: true
+  dateOfBirth?: true
+  occupation?: true
+  address?: true
+  city?: true
+  state?: true
+  country?: true
+  zipCode?: true
+  website?: true
+  github?: true
+  linkedin?: true
+  facebook?: true
+  isSuperhost?: true
+  isVerified?: true
+  rating?: true
+  responseRate?: true
+  responseTime?: true
   role?: true
   status?: true
   createdAt?: true
@@ -86,6 +204,26 @@ export type UserCountAggregateInputType = {
   name?: true
   email?: true
   password?: true
+  avatar?: true
+  phone?: true
+  bio?: true
+  gender?: true
+  dateOfBirth?: true
+  occupation?: true
+  address?: true
+  city?: true
+  state?: true
+  country?: true
+  zipCode?: true
+  website?: true
+  github?: true
+  linkedin?: true
+  facebook?: true
+  isSuperhost?: true
+  isVerified?: true
+  rating?: true
+  responseRate?: true
+  responseTime?: true
   role?: true
   status?: true
   createdAt?: true
@@ -131,6 +269,18 @@ export type UserAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: UserAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: UserSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: UserMinAggregateInputType
@@ -161,6 +311,8 @@ export type UserGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
   take?: number
   skip?: number
   _count?: UserCountAggregateInputType | true
+  _avg?: UserAvgAggregateInputType
+  _sum?: UserSumAggregateInputType
   _min?: UserMinAggregateInputType
   _max?: UserMaxAggregateInputType
 }
@@ -170,11 +322,33 @@ export type UserGroupByOutputType = {
   name: string
   email: string
   password: string
+  avatar: string | null
+  phone: string | null
+  bio: string | null
+  gender: $Enums.Gender | null
+  dateOfBirth: Date | null
+  occupation: string | null
+  address: string | null
+  city: string | null
+  state: string | null
+  country: string | null
+  zipCode: string | null
+  website: string | null
+  github: string | null
+  linkedin: string | null
+  facebook: string | null
+  isSuperhost: boolean
+  isVerified: boolean
+  rating: number
+  responseRate: string | null
+  responseTime: string | null
   role: $Enums.Role
   status: $Enums.UserStatus
   createdAt: Date
   updatedAt: Date
   _count: UserCountAggregateOutputType | null
+  _avg: UserAvgAggregateOutputType | null
+  _sum: UserSumAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
 }
@@ -202,6 +376,26 @@ export type UserWhereInput = {
   name?: Prisma.StringFilter<"User"> | string
   email?: Prisma.StringFilter<"User"> | string
   password?: Prisma.StringFilter<"User"> | string
+  avatar?: Prisma.StringNullableFilter<"User"> | string | null
+  phone?: Prisma.StringNullableFilter<"User"> | string | null
+  bio?: Prisma.StringNullableFilter<"User"> | string | null
+  gender?: Prisma.EnumGenderNullableFilter<"User"> | $Enums.Gender | null
+  dateOfBirth?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  occupation?: Prisma.StringNullableFilter<"User"> | string | null
+  address?: Prisma.StringNullableFilter<"User"> | string | null
+  city?: Prisma.StringNullableFilter<"User"> | string | null
+  state?: Prisma.StringNullableFilter<"User"> | string | null
+  country?: Prisma.StringNullableFilter<"User"> | string | null
+  zipCode?: Prisma.StringNullableFilter<"User"> | string | null
+  website?: Prisma.StringNullableFilter<"User"> | string | null
+  github?: Prisma.StringNullableFilter<"User"> | string | null
+  linkedin?: Prisma.StringNullableFilter<"User"> | string | null
+  facebook?: Prisma.StringNullableFilter<"User"> | string | null
+  isSuperhost?: Prisma.BoolFilter<"User"> | boolean
+  isVerified?: Prisma.BoolFilter<"User"> | boolean
+  rating?: Prisma.FloatFilter<"User"> | number
+  responseRate?: Prisma.StringNullableFilter<"User"> | string | null
+  responseTime?: Prisma.StringNullableFilter<"User"> | string | null
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   status?: Prisma.EnumUserStatusFilter<"User"> | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -217,6 +411,26 @@ export type UserOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
+  avatar?: Prisma.SortOrderInput | Prisma.SortOrder
+  phone?: Prisma.SortOrderInput | Prisma.SortOrder
+  bio?: Prisma.SortOrderInput | Prisma.SortOrder
+  gender?: Prisma.SortOrderInput | Prisma.SortOrder
+  dateOfBirth?: Prisma.SortOrderInput | Prisma.SortOrder
+  occupation?: Prisma.SortOrderInput | Prisma.SortOrder
+  address?: Prisma.SortOrderInput | Prisma.SortOrder
+  city?: Prisma.SortOrderInput | Prisma.SortOrder
+  state?: Prisma.SortOrderInput | Prisma.SortOrder
+  country?: Prisma.SortOrderInput | Prisma.SortOrder
+  zipCode?: Prisma.SortOrderInput | Prisma.SortOrder
+  website?: Prisma.SortOrderInput | Prisma.SortOrder
+  github?: Prisma.SortOrderInput | Prisma.SortOrder
+  linkedin?: Prisma.SortOrderInput | Prisma.SortOrder
+  facebook?: Prisma.SortOrderInput | Prisma.SortOrder
+  isSuperhost?: Prisma.SortOrder
+  isVerified?: Prisma.SortOrder
+  rating?: Prisma.SortOrder
+  responseRate?: Prisma.SortOrderInput | Prisma.SortOrder
+  responseTime?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -235,6 +449,26 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   name?: Prisma.StringFilter<"User"> | string
   password?: Prisma.StringFilter<"User"> | string
+  avatar?: Prisma.StringNullableFilter<"User"> | string | null
+  phone?: Prisma.StringNullableFilter<"User"> | string | null
+  bio?: Prisma.StringNullableFilter<"User"> | string | null
+  gender?: Prisma.EnumGenderNullableFilter<"User"> | $Enums.Gender | null
+  dateOfBirth?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  occupation?: Prisma.StringNullableFilter<"User"> | string | null
+  address?: Prisma.StringNullableFilter<"User"> | string | null
+  city?: Prisma.StringNullableFilter<"User"> | string | null
+  state?: Prisma.StringNullableFilter<"User"> | string | null
+  country?: Prisma.StringNullableFilter<"User"> | string | null
+  zipCode?: Prisma.StringNullableFilter<"User"> | string | null
+  website?: Prisma.StringNullableFilter<"User"> | string | null
+  github?: Prisma.StringNullableFilter<"User"> | string | null
+  linkedin?: Prisma.StringNullableFilter<"User"> | string | null
+  facebook?: Prisma.StringNullableFilter<"User"> | string | null
+  isSuperhost?: Prisma.BoolFilter<"User"> | boolean
+  isVerified?: Prisma.BoolFilter<"User"> | boolean
+  rating?: Prisma.FloatFilter<"User"> | number
+  responseRate?: Prisma.StringNullableFilter<"User"> | string | null
+  responseTime?: Prisma.StringNullableFilter<"User"> | string | null
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   status?: Prisma.EnumUserStatusFilter<"User"> | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -250,13 +484,35 @@ export type UserOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
+  avatar?: Prisma.SortOrderInput | Prisma.SortOrder
+  phone?: Prisma.SortOrderInput | Prisma.SortOrder
+  bio?: Prisma.SortOrderInput | Prisma.SortOrder
+  gender?: Prisma.SortOrderInput | Prisma.SortOrder
+  dateOfBirth?: Prisma.SortOrderInput | Prisma.SortOrder
+  occupation?: Prisma.SortOrderInput | Prisma.SortOrder
+  address?: Prisma.SortOrderInput | Prisma.SortOrder
+  city?: Prisma.SortOrderInput | Prisma.SortOrder
+  state?: Prisma.SortOrderInput | Prisma.SortOrder
+  country?: Prisma.SortOrderInput | Prisma.SortOrder
+  zipCode?: Prisma.SortOrderInput | Prisma.SortOrder
+  website?: Prisma.SortOrderInput | Prisma.SortOrder
+  github?: Prisma.SortOrderInput | Prisma.SortOrder
+  linkedin?: Prisma.SortOrderInput | Prisma.SortOrder
+  facebook?: Prisma.SortOrderInput | Prisma.SortOrder
+  isSuperhost?: Prisma.SortOrder
+  isVerified?: Prisma.SortOrder
+  rating?: Prisma.SortOrder
+  responseRate?: Prisma.SortOrderInput | Prisma.SortOrder
+  responseTime?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
+  _avg?: Prisma.UserAvgOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
   _min?: Prisma.UserMinOrderByAggregateInput
+  _sum?: Prisma.UserSumOrderByAggregateInput
 }
 
 export type UserScalarWhereWithAggregatesInput = {
@@ -267,6 +523,26 @@ export type UserScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"User"> | string
   email?: Prisma.StringWithAggregatesFilter<"User"> | string
   password?: Prisma.StringWithAggregatesFilter<"User"> | string
+  avatar?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  phone?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  bio?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  gender?: Prisma.EnumGenderNullableWithAggregatesFilter<"User"> | $Enums.Gender | null
+  dateOfBirth?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  occupation?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  address?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  city?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  state?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  country?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  zipCode?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  website?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  github?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  linkedin?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  facebook?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  isSuperhost?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  isVerified?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  rating?: Prisma.FloatWithAggregatesFilter<"User"> | number
+  responseRate?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  responseTime?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
   status?: Prisma.EnumUserStatusWithAggregatesFilter<"User"> | $Enums.UserStatus
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -278,6 +554,26 @@ export type UserCreateInput = {
   name: string
   email: string
   password: string
+  avatar?: string | null
+  phone?: string | null
+  bio?: string | null
+  gender?: $Enums.Gender | null
+  dateOfBirth?: Date | string | null
+  occupation?: string | null
+  address?: string | null
+  city?: string | null
+  state?: string | null
+  country?: string | null
+  zipCode?: string | null
+  website?: string | null
+  github?: string | null
+  linkedin?: string | null
+  facebook?: string | null
+  isSuperhost?: boolean
+  isVerified?: boolean
+  rating?: number
+  responseRate?: string | null
+  responseTime?: string | null
   role: $Enums.Role
   status?: $Enums.UserStatus
   createdAt?: Date | string
@@ -293,6 +589,26 @@ export type UserUncheckedCreateInput = {
   name: string
   email: string
   password: string
+  avatar?: string | null
+  phone?: string | null
+  bio?: string | null
+  gender?: $Enums.Gender | null
+  dateOfBirth?: Date | string | null
+  occupation?: string | null
+  address?: string | null
+  city?: string | null
+  state?: string | null
+  country?: string | null
+  zipCode?: string | null
+  website?: string | null
+  github?: string | null
+  linkedin?: string | null
+  facebook?: string | null
+  isSuperhost?: boolean
+  isVerified?: boolean
+  rating?: number
+  responseRate?: string | null
+  responseTime?: string | null
   role: $Enums.Role
   status?: $Enums.UserStatus
   createdAt?: Date | string
@@ -308,6 +624,26 @@ export type UserUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  occupation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  facebook?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isSuperhost?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  responseRate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  responseTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -323,6 +659,26 @@ export type UserUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  occupation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  facebook?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isSuperhost?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  responseRate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  responseTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -338,6 +694,26 @@ export type UserCreateManyInput = {
   name: string
   email: string
   password: string
+  avatar?: string | null
+  phone?: string | null
+  bio?: string | null
+  gender?: $Enums.Gender | null
+  dateOfBirth?: Date | string | null
+  occupation?: string | null
+  address?: string | null
+  city?: string | null
+  state?: string | null
+  country?: string | null
+  zipCode?: string | null
+  website?: string | null
+  github?: string | null
+  linkedin?: string | null
+  facebook?: string | null
+  isSuperhost?: boolean
+  isVerified?: boolean
+  rating?: number
+  responseRate?: string | null
+  responseTime?: string | null
   role: $Enums.Role
   status?: $Enums.UserStatus
   createdAt?: Date | string
@@ -349,6 +725,26 @@ export type UserUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  occupation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  facebook?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isSuperhost?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  responseRate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  responseTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -360,6 +756,26 @@ export type UserUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  occupation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  facebook?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isSuperhost?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  responseRate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  responseTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -376,10 +792,34 @@ export type UserCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
+  avatar?: Prisma.SortOrder
+  phone?: Prisma.SortOrder
+  bio?: Prisma.SortOrder
+  gender?: Prisma.SortOrder
+  dateOfBirth?: Prisma.SortOrder
+  occupation?: Prisma.SortOrder
+  address?: Prisma.SortOrder
+  city?: Prisma.SortOrder
+  state?: Prisma.SortOrder
+  country?: Prisma.SortOrder
+  zipCode?: Prisma.SortOrder
+  website?: Prisma.SortOrder
+  github?: Prisma.SortOrder
+  linkedin?: Prisma.SortOrder
+  facebook?: Prisma.SortOrder
+  isSuperhost?: Prisma.SortOrder
+  isVerified?: Prisma.SortOrder
+  rating?: Prisma.SortOrder
+  responseRate?: Prisma.SortOrder
+  responseTime?: Prisma.SortOrder
   role?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type UserAvgOrderByAggregateInput = {
+  rating?: Prisma.SortOrder
 }
 
 export type UserMaxOrderByAggregateInput = {
@@ -387,6 +827,26 @@ export type UserMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
+  avatar?: Prisma.SortOrder
+  phone?: Prisma.SortOrder
+  bio?: Prisma.SortOrder
+  gender?: Prisma.SortOrder
+  dateOfBirth?: Prisma.SortOrder
+  occupation?: Prisma.SortOrder
+  address?: Prisma.SortOrder
+  city?: Prisma.SortOrder
+  state?: Prisma.SortOrder
+  country?: Prisma.SortOrder
+  zipCode?: Prisma.SortOrder
+  website?: Prisma.SortOrder
+  github?: Prisma.SortOrder
+  linkedin?: Prisma.SortOrder
+  facebook?: Prisma.SortOrder
+  isSuperhost?: Prisma.SortOrder
+  isVerified?: Prisma.SortOrder
+  rating?: Prisma.SortOrder
+  responseRate?: Prisma.SortOrder
+  responseTime?: Prisma.SortOrder
   role?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -398,10 +858,34 @@ export type UserMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
+  avatar?: Prisma.SortOrder
+  phone?: Prisma.SortOrder
+  bio?: Prisma.SortOrder
+  gender?: Prisma.SortOrder
+  dateOfBirth?: Prisma.SortOrder
+  occupation?: Prisma.SortOrder
+  address?: Prisma.SortOrder
+  city?: Prisma.SortOrder
+  state?: Prisma.SortOrder
+  country?: Prisma.SortOrder
+  zipCode?: Prisma.SortOrder
+  website?: Prisma.SortOrder
+  github?: Prisma.SortOrder
+  linkedin?: Prisma.SortOrder
+  facebook?: Prisma.SortOrder
+  isSuperhost?: Prisma.SortOrder
+  isVerified?: Prisma.SortOrder
+  rating?: Prisma.SortOrder
+  responseRate?: Prisma.SortOrder
+  responseTime?: Prisma.SortOrder
   role?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type UserSumOrderByAggregateInput = {
+  rating?: Prisma.SortOrder
 }
 
 export type UserCreateNestedOneWithoutPaymentsInput = {
@@ -460,6 +944,10 @@ export type UserUpdateOneRequiredWithoutReviewsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReviewsInput, Prisma.UserUpdateWithoutReviewsInput>, Prisma.UserUncheckedUpdateWithoutReviewsInput>
 }
 
+export type NullableEnumGenderFieldUpdateOperationsInput = {
+  set?: $Enums.Gender | null
+}
+
 export type EnumRoleFieldUpdateOperationsInput = {
   set?: $Enums.Role
 }
@@ -473,6 +961,26 @@ export type UserCreateWithoutPaymentsInput = {
   name: string
   email: string
   password: string
+  avatar?: string | null
+  phone?: string | null
+  bio?: string | null
+  gender?: $Enums.Gender | null
+  dateOfBirth?: Date | string | null
+  occupation?: string | null
+  address?: string | null
+  city?: string | null
+  state?: string | null
+  country?: string | null
+  zipCode?: string | null
+  website?: string | null
+  github?: string | null
+  linkedin?: string | null
+  facebook?: string | null
+  isSuperhost?: boolean
+  isVerified?: boolean
+  rating?: number
+  responseRate?: string | null
+  responseTime?: string | null
   role: $Enums.Role
   status?: $Enums.UserStatus
   createdAt?: Date | string
@@ -487,6 +995,26 @@ export type UserUncheckedCreateWithoutPaymentsInput = {
   name: string
   email: string
   password: string
+  avatar?: string | null
+  phone?: string | null
+  bio?: string | null
+  gender?: $Enums.Gender | null
+  dateOfBirth?: Date | string | null
+  occupation?: string | null
+  address?: string | null
+  city?: string | null
+  state?: string | null
+  country?: string | null
+  zipCode?: string | null
+  website?: string | null
+  github?: string | null
+  linkedin?: string | null
+  facebook?: string | null
+  isSuperhost?: boolean
+  isVerified?: boolean
+  rating?: number
+  responseRate?: string | null
+  responseTime?: string | null
   role: $Enums.Role
   status?: $Enums.UserStatus
   createdAt?: Date | string
@@ -517,6 +1045,26 @@ export type UserUpdateWithoutPaymentsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  occupation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  facebook?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isSuperhost?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  responseRate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  responseTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -531,6 +1079,26 @@ export type UserUncheckedUpdateWithoutPaymentsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  occupation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  facebook?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isSuperhost?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  responseRate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  responseTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -545,6 +1113,26 @@ export type UserCreateWithoutPropertiesInput = {
   name: string
   email: string
   password: string
+  avatar?: string | null
+  phone?: string | null
+  bio?: string | null
+  gender?: $Enums.Gender | null
+  dateOfBirth?: Date | string | null
+  occupation?: string | null
+  address?: string | null
+  city?: string | null
+  state?: string | null
+  country?: string | null
+  zipCode?: string | null
+  website?: string | null
+  github?: string | null
+  linkedin?: string | null
+  facebook?: string | null
+  isSuperhost?: boolean
+  isVerified?: boolean
+  rating?: number
+  responseRate?: string | null
+  responseTime?: string | null
   role: $Enums.Role
   status?: $Enums.UserStatus
   createdAt?: Date | string
@@ -559,6 +1147,26 @@ export type UserUncheckedCreateWithoutPropertiesInput = {
   name: string
   email: string
   password: string
+  avatar?: string | null
+  phone?: string | null
+  bio?: string | null
+  gender?: $Enums.Gender | null
+  dateOfBirth?: Date | string | null
+  occupation?: string | null
+  address?: string | null
+  city?: string | null
+  state?: string | null
+  country?: string | null
+  zipCode?: string | null
+  website?: string | null
+  github?: string | null
+  linkedin?: string | null
+  facebook?: string | null
+  isSuperhost?: boolean
+  isVerified?: boolean
+  rating?: number
+  responseRate?: string | null
+  responseTime?: string | null
   role: $Enums.Role
   status?: $Enums.UserStatus
   createdAt?: Date | string
@@ -589,6 +1197,26 @@ export type UserUpdateWithoutPropertiesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  occupation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  facebook?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isSuperhost?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  responseRate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  responseTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -603,6 +1231,26 @@ export type UserUncheckedUpdateWithoutPropertiesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  occupation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  facebook?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isSuperhost?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  responseRate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  responseTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -617,6 +1265,26 @@ export type UserCreateWithoutRentalRequestsInput = {
   name: string
   email: string
   password: string
+  avatar?: string | null
+  phone?: string | null
+  bio?: string | null
+  gender?: $Enums.Gender | null
+  dateOfBirth?: Date | string | null
+  occupation?: string | null
+  address?: string | null
+  city?: string | null
+  state?: string | null
+  country?: string | null
+  zipCode?: string | null
+  website?: string | null
+  github?: string | null
+  linkedin?: string | null
+  facebook?: string | null
+  isSuperhost?: boolean
+  isVerified?: boolean
+  rating?: number
+  responseRate?: string | null
+  responseTime?: string | null
   role: $Enums.Role
   status?: $Enums.UserStatus
   createdAt?: Date | string
@@ -631,6 +1299,26 @@ export type UserUncheckedCreateWithoutRentalRequestsInput = {
   name: string
   email: string
   password: string
+  avatar?: string | null
+  phone?: string | null
+  bio?: string | null
+  gender?: $Enums.Gender | null
+  dateOfBirth?: Date | string | null
+  occupation?: string | null
+  address?: string | null
+  city?: string | null
+  state?: string | null
+  country?: string | null
+  zipCode?: string | null
+  website?: string | null
+  github?: string | null
+  linkedin?: string | null
+  facebook?: string | null
+  isSuperhost?: boolean
+  isVerified?: boolean
+  rating?: number
+  responseRate?: string | null
+  responseTime?: string | null
   role: $Enums.Role
   status?: $Enums.UserStatus
   createdAt?: Date | string
@@ -661,6 +1349,26 @@ export type UserUpdateWithoutRentalRequestsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  occupation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  facebook?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isSuperhost?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  responseRate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  responseTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -675,6 +1383,26 @@ export type UserUncheckedUpdateWithoutRentalRequestsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  occupation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  facebook?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isSuperhost?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  responseRate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  responseTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -689,6 +1417,26 @@ export type UserCreateWithoutReviewsInput = {
   name: string
   email: string
   password: string
+  avatar?: string | null
+  phone?: string | null
+  bio?: string | null
+  gender?: $Enums.Gender | null
+  dateOfBirth?: Date | string | null
+  occupation?: string | null
+  address?: string | null
+  city?: string | null
+  state?: string | null
+  country?: string | null
+  zipCode?: string | null
+  website?: string | null
+  github?: string | null
+  linkedin?: string | null
+  facebook?: string | null
+  isSuperhost?: boolean
+  isVerified?: boolean
+  rating?: number
+  responseRate?: string | null
+  responseTime?: string | null
   role: $Enums.Role
   status?: $Enums.UserStatus
   createdAt?: Date | string
@@ -703,6 +1451,26 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   name: string
   email: string
   password: string
+  avatar?: string | null
+  phone?: string | null
+  bio?: string | null
+  gender?: $Enums.Gender | null
+  dateOfBirth?: Date | string | null
+  occupation?: string | null
+  address?: string | null
+  city?: string | null
+  state?: string | null
+  country?: string | null
+  zipCode?: string | null
+  website?: string | null
+  github?: string | null
+  linkedin?: string | null
+  facebook?: string | null
+  isSuperhost?: boolean
+  isVerified?: boolean
+  rating?: number
+  responseRate?: string | null
+  responseTime?: string | null
   role: $Enums.Role
   status?: $Enums.UserStatus
   createdAt?: Date | string
@@ -733,6 +1501,26 @@ export type UserUpdateWithoutReviewsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  occupation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  facebook?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isSuperhost?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  responseRate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  responseTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -747,6 +1535,26 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  occupation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  facebook?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isSuperhost?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  responseRate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  responseTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -819,6 +1627,26 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   name?: boolean
   email?: boolean
   password?: boolean
+  avatar?: boolean
+  phone?: boolean
+  bio?: boolean
+  gender?: boolean
+  dateOfBirth?: boolean
+  occupation?: boolean
+  address?: boolean
+  city?: boolean
+  state?: boolean
+  country?: boolean
+  zipCode?: boolean
+  website?: boolean
+  github?: boolean
+  linkedin?: boolean
+  facebook?: boolean
+  isSuperhost?: boolean
+  isVerified?: boolean
+  rating?: boolean
+  responseRate?: boolean
+  responseTime?: boolean
   role?: boolean
   status?: boolean
   createdAt?: boolean
@@ -835,6 +1663,26 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   name?: boolean
   email?: boolean
   password?: boolean
+  avatar?: boolean
+  phone?: boolean
+  bio?: boolean
+  gender?: boolean
+  dateOfBirth?: boolean
+  occupation?: boolean
+  address?: boolean
+  city?: boolean
+  state?: boolean
+  country?: boolean
+  zipCode?: boolean
+  website?: boolean
+  github?: boolean
+  linkedin?: boolean
+  facebook?: boolean
+  isSuperhost?: boolean
+  isVerified?: boolean
+  rating?: boolean
+  responseRate?: boolean
+  responseTime?: boolean
   role?: boolean
   status?: boolean
   createdAt?: boolean
@@ -846,6 +1694,26 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   name?: boolean
   email?: boolean
   password?: boolean
+  avatar?: boolean
+  phone?: boolean
+  bio?: boolean
+  gender?: boolean
+  dateOfBirth?: boolean
+  occupation?: boolean
+  address?: boolean
+  city?: boolean
+  state?: boolean
+  country?: boolean
+  zipCode?: boolean
+  website?: boolean
+  github?: boolean
+  linkedin?: boolean
+  facebook?: boolean
+  isSuperhost?: boolean
+  isVerified?: boolean
+  rating?: boolean
+  responseRate?: boolean
+  responseTime?: boolean
   role?: boolean
   status?: boolean
   createdAt?: boolean
@@ -857,13 +1725,33 @@ export type UserSelectScalar = {
   name?: boolean
   email?: boolean
   password?: boolean
+  avatar?: boolean
+  phone?: boolean
+  bio?: boolean
+  gender?: boolean
+  dateOfBirth?: boolean
+  occupation?: boolean
+  address?: boolean
+  city?: boolean
+  state?: boolean
+  country?: boolean
+  zipCode?: boolean
+  website?: boolean
+  github?: boolean
+  linkedin?: boolean
+  facebook?: boolean
+  isSuperhost?: boolean
+  isVerified?: boolean
+  rating?: boolean
+  responseRate?: boolean
+  responseTime?: boolean
   role?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "password" | "role" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "password" | "avatar" | "phone" | "bio" | "gender" | "dateOfBirth" | "occupation" | "address" | "city" | "state" | "country" | "zipCode" | "website" | "github" | "linkedin" | "facebook" | "isSuperhost" | "isVerified" | "rating" | "responseRate" | "responseTime" | "role" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   properties?: boolean | Prisma.User$propertiesArgs<ExtArgs>
   rentalRequests?: boolean | Prisma.User$rentalRequestsArgs<ExtArgs>
@@ -887,6 +1775,26 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     name: string
     email: string
     password: string
+    avatar: string | null
+    phone: string | null
+    bio: string | null
+    gender: $Enums.Gender | null
+    dateOfBirth: Date | null
+    occupation: string | null
+    address: string | null
+    city: string | null
+    state: string | null
+    country: string | null
+    zipCode: string | null
+    website: string | null
+    github: string | null
+    linkedin: string | null
+    facebook: string | null
+    isSuperhost: boolean
+    isVerified: boolean
+    rating: number
+    responseRate: string | null
+    responseTime: string | null
     role: $Enums.Role
     status: $Enums.UserStatus
     createdAt: Date
@@ -1322,6 +2230,26 @@ export interface UserFieldRefs {
   readonly name: Prisma.FieldRef<"User", 'String'>
   readonly email: Prisma.FieldRef<"User", 'String'>
   readonly password: Prisma.FieldRef<"User", 'String'>
+  readonly avatar: Prisma.FieldRef<"User", 'String'>
+  readonly phone: Prisma.FieldRef<"User", 'String'>
+  readonly bio: Prisma.FieldRef<"User", 'String'>
+  readonly gender: Prisma.FieldRef<"User", 'Gender'>
+  readonly dateOfBirth: Prisma.FieldRef<"User", 'DateTime'>
+  readonly occupation: Prisma.FieldRef<"User", 'String'>
+  readonly address: Prisma.FieldRef<"User", 'String'>
+  readonly city: Prisma.FieldRef<"User", 'String'>
+  readonly state: Prisma.FieldRef<"User", 'String'>
+  readonly country: Prisma.FieldRef<"User", 'String'>
+  readonly zipCode: Prisma.FieldRef<"User", 'String'>
+  readonly website: Prisma.FieldRef<"User", 'String'>
+  readonly github: Prisma.FieldRef<"User", 'String'>
+  readonly linkedin: Prisma.FieldRef<"User", 'String'>
+  readonly facebook: Prisma.FieldRef<"User", 'String'>
+  readonly isSuperhost: Prisma.FieldRef<"User", 'Boolean'>
+  readonly isVerified: Prisma.FieldRef<"User", 'Boolean'>
+  readonly rating: Prisma.FieldRef<"User", 'Float'>
+  readonly responseRate: Prisma.FieldRef<"User", 'String'>
+  readonly responseTime: Prisma.FieldRef<"User", 'String'>
   readonly role: Prisma.FieldRef<"User", 'Role'>
   readonly status: Prisma.FieldRef<"User", 'UserStatus'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>

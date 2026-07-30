@@ -1,166 +1,324 @@
 import { Prisma } from "../../../generated/prisma/client";
 import { prisma } from "../../lib/prisma";
 import { AppError } from "../../utils/AppError";
-import { PropertyListQuery } from "./property.interface";
-
-
+import { CreatePropertyInput, PropertyListQuery } from "./property.interface";
 
 const propertyListSelect = {
-    id: true,
-    title: true,
-    description: true,
-    location: true,
-    price: true,
-    amenities: true,
-    isAvailable: true,
-    createdAt: true,
-    category: {
-        select: {
-            id: true,
-            name: true,
-        },
+  id: true,
+  title: true,
+  slug: true,
+  description: true,
+  detailedDescription: true,
+  location: true,
+  city: true,
+  state: true,
+  price: true,
+  bedrooms: true,
+  bathrooms: true,
+  areaSqFt: true,
+  rating: true,
+  reviewCount: true,
+  isFeatured: true,
+  isAvailable: true,
+  mainImage: true,
+  images: true,
+  amenities: true,
+  createdAt: true,
+
+  category: {
+    select: {
+      id: true,
+      name: true,
     },
-    landlord: {
-        select: {
-            id: true,
-            name: true,
-        },
+  },
+
+  landlord: {
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      avatar: true,
+      phone: true,
+      isSuperhost: true,
+      isVerified: true,
+      rating: true,
+      responseRate: true,
+      responseTime: true,
+      createdAt: true,
     },
+  },
+
+  overview: true,
 } as const;
 
 const propertyDetailsSelect = {
-    id: true,
-    title: true,
-    description: true,
-    location: true,
-    price: true,
-    amenities: true,
-    isAvailable: true,
-    createdAt: true,
-    landlord: {
-        select: {
-            id: true,
-            name: true,
-            email: true,
-        },
+  id: true,
+  title: true,
+  slug: true,
+  description: true,
+  detailedDescription: true,
+  location: true,
+  city: true,
+  state: true,
+  price: true,
+  bedrooms: true,
+  bathrooms: true,
+  areaSqFt: true,
+  rating: true,
+  reviewCount: true,
+  isFeatured: true,
+  isAvailable: true,
+  mainImage: true,
+  images: true,
+  amenities: true,
+  createdAt: true,
+  updatedAt: true,
+
+  category: {
+    select: {
+      id: true,
+      name: true,
     },
-    category: {
-        select: {
-            id: true,
-            name: true,
-        },
+  },
+
+  landlord: {
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      avatar: true,
+      phone: true,
+      isSuperhost: true,
+      isVerified: true,
+      rating: true,
+      responseRate: true,
+      responseTime: true,
+      createdAt: true,
     },
-    reviews: {
+  },
+
+  overview: true,
+
+  reviews: {
+    select: {
+      id: true,
+      rating: true,
+      comment: true,
+      createdAt: true,
+      tenant: {
         select: {
-            id: true,
-            rating: true,
-            comment: true,
-            createdAt: true,
-            tenant: {
-                select: {
-                    id: true,
-                    name: true,
-                },
-            },
+          id: true,
+          name: true,
+          avatar: true,
         },
-        orderBy: {
-            createdAt: "desc",
-        },
+      },
     },
+    orderBy: {
+      createdAt: "desc" as const,
+    },
+  },
 } as const;
 
-const buildPropertyWhereClause = (query: PropertyListQuery): Prisma.PropertyWhereInput => {
-    const where: Prisma.PropertyWhereInput = {
-        isAvailable: true,
-    };
+const createPropertyInDB = async (landlordId: string, payload: CreatePropertyInput) => {
+  const {
+    categoryId,
+    overview,
+    title,
+    slug,
+    description,
+    detailedDescription,
+    location,
+    city,
+    state,
+    price,
+    bedrooms,
+    bathrooms,
+    areaSqFt,
+    isFeatured,
+    isAvailable,
+    mainImage,
+    images,
+    amenities,
+  } = payload;
 
-    if (query.location) {
-        where.location = {
-            contains: query.location,
-            mode: "insensitive",
-        };
-    }
+  let category = await prisma.category.findUnique({
+    where: { id: categoryId },
+  });
 
-    if (query.category) {
-        where.category = {
-            name: {
-                equals: query.category,
-                mode: "insensitive",
+  if (!category) {
+    category = await prisma.category.findFirst({
+      where: { name: { equals: categoryId, mode: "insensitive" } },
+    });
+  }
+
+  if (!category) {
+    category = await prisma.category.create({
+      data: { name: categoryId },
+    });
+  }
+
+  const createdProperty = await prisma.property.create({
+    data: {
+      title,
+      slug,
+      description,
+      detailedDescription,
+      location,
+      city,
+      state,
+      price,
+      bedrooms,
+      bathrooms,
+      areaSqFt,
+      isFeatured: isFeatured ?? false,
+      isAvailable: isAvailable ?? true,
+      mainImage,
+      images: images ?? [],
+      amenities: amenities ?? [],
+      landlord: {
+        connect: { id: landlordId },
+      },
+      category: {
+        connect: { id: category.id },
+      },
+      ...(overview
+        ? {
+            overview: {
+              create: {
+                address: overview.address,
+                city: overview.city,
+                state: overview.state,
+                zipCode: overview.zipCode,
+                availableFrom: overview.availableFrom,
+                status: overview.status,
+                yearBuilt: overview.yearBuilt,
+                depositAmount: overview.depositAmount,
+                leaseTerm: overview.leaseTerm,
+                petPolicy: overview.petPolicy,
+                parkingType: overview.parkingType,
+              },
             },
-        };
-    }
+          }
+        : {}),
+    },
+    select: propertyDetailsSelect,
+  });
 
-    if (typeof query.minPrice === "number" || typeof query.maxPrice === "number") {
-        where.price = {
-            ...(typeof query.minPrice === "number" ? { gte: query.minPrice } : {}),
-            ...(typeof query.maxPrice === "number" ? { lte: query.maxPrice } : {}),
-        };
-    }
+  return createdProperty;
+};
 
-    return where;
+const buildPropertyWhereClause = (query: PropertyListQuery): Prisma.PropertyWhereInput => {
+  const where: Prisma.PropertyWhereInput = {
+    isAvailable: true,
+  };
+
+  if (query.search) {
+    where.OR = [
+      { title: { contains: query.search, mode: "insensitive" } },
+      { description: { contains: query.search, mode: "insensitive" } },
+    ];
+  }
+
+  if (query.city) {
+    where.city = { contains: query.city, mode: "insensitive" };
+  }
+
+  if (query.state) {
+    where.state = { contains: query.state, mode: "insensitive" };
+  }
+
+  if (query.location) {
+    where.location = { contains: query.location, mode: "insensitive" };
+  }
+
+  if (query.category) {
+    where.category = {
+      name: { equals: query.category, mode: "insensitive" },
+    };
+  }
+
+  if (typeof query.minPrice === "number" || typeof query.maxPrice === "number") {
+    where.price = {
+      ...(typeof query.minPrice === "number" ? { gte: query.minPrice } : {}),
+      ...(typeof query.maxPrice === "number" ? { lte: query.maxPrice } : {}),
+    };
+  }
+
+  if (typeof query.bedrooms === "number") {
+    where.bedrooms = query.bedrooms;
+  }
+
+  if (typeof query.bathrooms === "number") {
+    where.bathrooms = query.bathrooms;
+  }
+
+  if (typeof query.featured === "boolean") {
+    where.isFeatured = query.featured;
+  }
+
+  return where;
 };
 
 const getPropertiesFromDB = async (query: PropertyListQuery) => {
-    const page = query.page ?? 1;
-    const limit = query.limit ?? 10;
-    const skip = (page - 1) * limit;
-    const where = buildPropertyWhereClause(query);
+  const page = query.page ?? 1;
+  const limit = query.limit ?? 10;
+  const skip = (page - 1) * limit;
+  const where = buildPropertyWhereClause(query);
 
-    const [total, properties] = await Promise.all([
-        prisma.property.count({ where }),
-        prisma.property.findMany({
-            where,
-            skip,
-            take: limit,
-            orderBy:
-                query.sort === "price_asc"
-                    ? { price: "asc" }
-                    : query.sort === "price_desc"
-                      ? { price: "desc" }
-                      : { createdAt: "desc" },
-            select: propertyListSelect,
-        }),
-    ]);
+  let orderBy: Prisma.PropertyOrderByWithRelationInput = { createdAt: "desc" };
 
-    return {
-        data: properties,
-        meta: {
-            page,
-            limit,
-            total,
-        },
-    };
+  if (query.sort === "price_asc") {
+    orderBy = { price: "asc" };
+  } else if (query.sort === "price_desc") {
+    orderBy = { price: "desc" };
+  } else if (query.sort === "rating") {
+    orderBy = { rating: "desc" };
+  } else if (query.sort === "newest") {
+    orderBy = { createdAt: "desc" };
+  }
+
+  const [total, properties] = await Promise.all([
+    prisma.property.count({ where }),
+    prisma.property.findMany({
+      where,
+      skip,
+      take: limit,
+      orderBy,
+      select: propertyListSelect,
+    }),
+  ]);
+
+  return {
+    data: properties,
+    meta: {
+      page,
+      limit,
+      total,
+    },
+  };
 };
 
 const getPropertyByIdFromDB = async (propertyId: string) => {
-    const property = await prisma.property.findFirst({
-        where: {
-            id: propertyId,
-            isAvailable: true,
-        },
-        select: propertyDetailsSelect,
-    });
+  const property = await prisma.property.findFirst({
+    where: {
+      id: propertyId,
+      isAvailable: true,
+    },
+    select: propertyDetailsSelect,
+  });
 
-    if (!property) {
-        throw new AppError(404, "Property not found");
-    }
+  if (!property) {
+    throw new AppError(404, "Property not found");
+  }
 
-    const ratingAggregate = await prisma.review.aggregate({
-        where: {
-            propertyId,
-        },
-        _avg: {
-            rating: true,
-        },
-    });
-
-    return {
-        ...property,
-        averageRating: ratingAggregate._avg.rating ?? 0,
-    };
+  return {
+    ...property,
+    averageRating: property.rating,
+  };
 };
 
 export const propertyService = {
-    getPropertiesFromDB,
-    getPropertyByIdFromDB,
+  createPropertyInDB,
+  getPropertiesFromDB,
+  getPropertyByIdFromDB,
 };
