@@ -13,13 +13,17 @@ import { reviewRouter } from "./modules/review/review.route";
 import { notFound } from "./middlewares/notFound";
 import { globalErrorHandler } from "./middlewares/globalErrorHandler";
 import { categoriesRouter } from "./modules/category/category.route";
+import { webhookRouter } from "./modules/webhook/webhook.route";
 
 const app: Application = express();
 
 app.use(cors({
     origin: config.app_url,
     credentials: true,
-}))
+}));
+
+// Stripe webhook requires raw body for signature verification - MUST be mounted BEFORE express.json()
+app.use("/api/webhooks", express.raw({ type: "*/*" }), webhookRouter);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

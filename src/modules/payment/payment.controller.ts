@@ -26,28 +26,6 @@ const createPayment = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
-const confirmPayment = catchAsync(async (req: Request, res: Response) => {
-    const currentUser = req.user;
-
-    if (!currentUser) {
-        return res.status(httpStatus.UNAUTHORIZED).json({
-            success: false,
-            statusCode: httpStatus.UNAUTHORIZED,
-            message: "Unauthorized access",
-            error: "Authenticated user information is missing",
-        });
-    }
-
-    const payment = await paymentService.confirmPaymentIntoDB(currentUser.id, req.body);
-
-    sendResponse(res, {
-        success: true,
-        statusCode: httpStatus.CREATED,
-        message: "Payment confirmed successfully",
-        data: payment,
-    });
-});
-
 const getMyPayments = catchAsync(async (req: Request, res: Response) => {
     const currentUser = req.user;
 
@@ -123,7 +101,6 @@ const paymentCancel = (req: Request, res: Response) => {
 
 export const paymentController = {
     createPayment,
-    confirmPayment,
     getMyPayments,
     getPaymentById,
     paymentSuccess,

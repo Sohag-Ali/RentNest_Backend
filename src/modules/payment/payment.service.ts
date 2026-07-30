@@ -8,12 +8,6 @@ type CreatePaymentInput = {
     rentalRequestId: string;
 };
 
-type ConfirmPaymentInput = {
-    sessionId: string;
-    rentalRequestId: string;
-};
-
-
 const paymentHistorySelect = {
     id: true,
     rentalRequestId: true,
@@ -142,7 +136,7 @@ const createPaymentIntentIntoDB = async (tenantId: string, payload: CreatePaymen
                     currency: "bdt",
                     product_data: {
                         name: rentalRequest.property.title,
-                        
+
                     },
                     unit_amount: amount,
                 },
@@ -153,65 +147,16 @@ const createPaymentIntentIntoDB = async (tenantId: string, payload: CreatePaymen
             rentalRequestId: payload.rentalRequestId,
             tenantId,
         },
-        success_url: `${config.app_url}/api/payments/success?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${config.app_url}/api/payments/cancel`,
+        success_url: `${config.app_url}/payment/success?session_id={CHECKOUT_SESSION_ID}&rentalRequestId=${payload.rentalRequestId}`,
+        cancel_url: `${config.app_url}/payment/cancel`,
     });
 
     return {
-        url: session.url,        
-        sessionId: session.id,   
+        url: session.url,
+        sessionId: session.id,
     };
 };
 
-
-const confirmPaymentIntoDB = async (tenantId: string, payload: ConfirmPaymentInput) => {
-    const session = await stripe.checkout.sessions.retrieve(payload.sessionId);
-
-    if (session.payment_status !== "paid") {
-        throw new AppError(400, "Payment has not been completed successfully");
-    }
-
-    if (session.metadata?.rentalRequestId !== payload.rentalRequestId) {
-        throw new AppError(400, "Session does not match the rental request");
-    }
-
-    if (session.metadata?.tenantId !== tenantId) {
-        throw new AppError(403, "You are not allowed to confirm this payment");
-    }
-
-    const rentalRequest = await prisma.rentalRequest.findFirst({
-        where: { id: payload.rentalRequestId, tenantId },
-        select: { id: true, property: { select: { price: true } } },
-    });
-
-    if (!rentalRequest) {
-        throw new AppError(404, "Rental request not found");
-    }
-
-    const payment = await prisma.$transaction(async (transaction) => {
-        const createdPayment = await transaction.payment.create({
-            data: {
-                rentalRequestId: payload.rentalRequestId,
-                userId: tenantId,
-                transactionId: session.payment_intent as string,
-                amount: rentalRequest.property.price,
-                provider: PaymentProvider.STRIPE,
-                status: PaymentStatus.COMPLETED,
-                paidAt: new Date(),
-            },
-            select: paymentDetailsSelect,
-        });
-
-        await transaction.rentalRequest.update({
-            where: { id: payload.rentalRequestId },
-            data: { status: RentalStatus.COMPLETED },
-        });
-
-        return createdPayment;
-    });
-
-    return payment;
-};
 
 const getMyPaymentsFromDB = async (tenantId: string) => {
     return prisma.payment.findMany({
@@ -243,7 +188,6 @@ const getPaymentByIdFromDB = async (tenantId: string, paymentId: string) => {
 
 export const paymentService = {
     createPaymentIntentIntoDB,
-    confirmPaymentIntoDB,
     getMyPaymentsFromDB,
     getPaymentByIdFromDB,
 };

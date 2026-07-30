@@ -9,13 +9,6 @@ export const createPaymentValidation = z
     })
     .strict();
 
-export const confirmPaymentValidation = z
-    .object({
-        sessionId: z.string({ error: "Session ID must be a string" }).trim().min(1),
-        rentalRequestId: z.string({ error: "Rental request ID must be a string" }).trim().uuid(),
-    })
-    .strict();
-
 export const paymentResourceIdValidation = z
     .object({
         id: z

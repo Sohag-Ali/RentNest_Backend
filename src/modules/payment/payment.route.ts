@@ -4,7 +4,6 @@ import { authenticateUser } from "../../middlewares/authenticateUser";
 import { validateRequest } from "../../middlewares/validateRequest";
 import { paymentController } from "./payment.controller";
 import {
-    confirmPaymentValidation,
     createPaymentValidation,
     paymentResourceIdValidation,
 } from "./payment.validation";
@@ -19,7 +18,6 @@ router.get("/cancel", paymentController.paymentCancel);
 router.use(authenticateUser(Role.TENANT));
 
 router.post("/create", validateRequest(createPaymentValidation), paymentController.createPayment);
-router.post("/confirm", validateRequest(confirmPaymentValidation), paymentController.confirmPayment);
 router.get("/", paymentController.getMyPayments);
 router.get("/:id", validateRequest(paymentResourceIdValidation, "params"), paymentController.getPaymentById);
 
