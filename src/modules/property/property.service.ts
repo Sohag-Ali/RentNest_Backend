@@ -208,9 +208,7 @@ const createPropertyInDB = async (landlordId: string, payload: CreatePropertyInp
 };
 
 const buildPropertyWhereClause = (query: PropertyListQuery): Prisma.PropertyWhereInput => {
-  const where: Prisma.PropertyWhereInput = {
-    isAvailable: true,
-  };
+  const where: Prisma.PropertyWhereInput = {};
 
   if (query.search) {
     where.OR = [
@@ -299,10 +297,9 @@ const getPropertiesFromDB = async (query: PropertyListQuery) => {
 };
 
 const getPropertyByIdFromDB = async (propertyId: string) => {
-  const property = await prisma.property.findFirst({
+  const property = await prisma.property.findUnique({
     where: {
       id: propertyId,
-      isAvailable: true,
     },
     select: propertyDetailsSelect,
   });
