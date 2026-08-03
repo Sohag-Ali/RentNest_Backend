@@ -52,8 +52,22 @@ const getPropertyById = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getFeaturedProperties = catchAsync(async (req: Request, res: Response) => {
+  const featuredProperties = await propertyService.getFeaturedPropertiesFromDB();
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: featuredProperties.length
+      ? "Featured properties fetched successfully"
+      : "No featured properties found",
+    data: featuredProperties,
+  });
+});
+
 export const propertyController = {
   createProperty,
   getProperties,
   getPropertyById,
+  getFeaturedProperties,
 };

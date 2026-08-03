@@ -119,6 +119,39 @@ const propertyDetailsSelect = {
   },
 } as const;
 
+const featuredPropertySelect = {
+  id: true,
+  title: true,
+  slug: true,
+  price: true,
+  city: true,
+  state: true,
+  mainImage: true,
+  images: true,
+  bedrooms: true,
+  bathrooms: true,
+  areaSqFt: true,
+  rating: true,
+  reviewCount: true,
+  isFeatured: true,
+  isAvailable: true,
+  createdAt: true,
+  category: {
+    select: {
+      id: true,
+      name: true,
+    },
+  },
+  landlord: {
+    select: {
+      id: true,
+      name: true,
+      avatar: true,
+      isVerified: true,
+    },
+  },
+} as const;
+
 const createPropertyInDB = async (landlordId: string, payload: CreatePropertyInput) => {
   const {
     categoryId,
@@ -314,8 +347,33 @@ const getPropertyByIdFromDB = async (propertyId: string) => {
   };
 };
 
+const getFeaturedPropertiesFromDB = async () => {
+  const featuredProperties = await prisma.property.findMany({
+    where: {
+      isFeatured: true,
+      isAvailable: true,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+    take: 3,
+    select: featuredPropertySelect,
+  });
+
+  if (!featuredProperties.length) {
+    return [];
+  }
+
+  return featuredProperties.map((property) => ({
+    ...property,
+    averageRating: property.rating,
+    wishlistCount: 0,
+  }));
+};
+
 export const propertyService = {
   createPropertyInDB,
   getPropertiesFromDB,
   getPropertyByIdFromDB,
+  getFeaturedPropertiesFromDB,
 };

@@ -11,6 +11,8 @@ import {
 
 const router = Router();
 
+router.get("/featured", propertyController.getFeaturedProperties);
+
 router.get("/", validateRequest(propertyQueryValidation, "query"), propertyController.getProperties);
 
 router.post(
