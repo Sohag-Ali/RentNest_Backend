@@ -2,10 +2,24 @@ import { prisma } from "../../lib/prisma";
 
 const getCategoriesFromDB = async () => {
     return prisma.category.findMany({
+        select: {
+            id: true,
+            name: true,
+            _count: {
+                select: {
+                    properties: true,
+                },
+            },
+        },
         orderBy: {
             name: "desc",
         },
-    });
+    }).then((categories) =>
+        categories.map((category) => ({
+            ...category,
+            propertiesCount: category._count.properties,
+        }))
+    );
 };
 
 const createCategoryIntoDB = async (payload: { name: string }) => {
