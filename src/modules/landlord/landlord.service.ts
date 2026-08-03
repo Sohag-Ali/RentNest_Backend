@@ -55,6 +55,7 @@ const rentalRequestSelect = {
       id: true,
       title: true,
       location: true,
+      mainImage: true,
       price: true,
       isAvailable: true,
       category: {
