@@ -3,6 +3,7 @@ import httpStatus from "http-status";
 import { landlordService } from "./landlord.service";
 import { catchAsync } from "../../utils/catchAsync";
 import { sendResponse } from "../../utils/sendResponse";
+import { GetLandlordRentedPropertiesQuery } from "./landload.interface";
 
 const createProperty = catchAsync(async (req: Request, res: Response) => {
     const currentUser = req.user;
@@ -158,10 +159,38 @@ const updateRentalRequestStatus = catchAsync(async (req: Request, res: Response)
     });
 });
 
+const getRentedProperties = catchAsync(async (req: Request, res: Response) => {
+    const currentUser = req.user;
+
+    if (!currentUser) {
+        return res.status(httpStatus.UNAUTHORIZED).json({
+            success: false,
+            statusCode: httpStatus.UNAUTHORIZED,
+            message: "Unauthorized access",
+            error: "Authenticated user information is missing",
+        });
+    }
+
+    const result = await landlordService.getRentedPropertiesFromDB(
+        currentUser.id,
+        req.query as GetLandlordRentedPropertiesQuery,
+    );
+
+    sendResponse(res, {
+        success: true,
+        statusCode: httpStatus.OK,
+        message: result.message,
+        data: result.data,
+        meta: result.meta,
+        summary: result.summary,
+    });
+});
+
 export const landlordController = {
     createProperty,
     updateProperty,
     deleteProperty,
     getLandlordRequests,
+    getRentedProperties,
     updateRentalRequestStatus,
 };

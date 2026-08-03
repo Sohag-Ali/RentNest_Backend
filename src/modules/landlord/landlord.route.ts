@@ -5,6 +5,7 @@ import { validateRequest } from "../../middlewares/validateRequest";
 import { landlordController } from "./landlord.controller";
 import {
     createLandlordPropertyValidation,
+    landlordRentedPropertiesQueryValidation,
     landlordResourceIdValidation,
     updateLandlordPropertyValidation,
     updateRentalRequestStatusValidation,
@@ -39,6 +40,13 @@ router.delete(
 router.get("/requests",
     authenticateUser(Role.LANDLORD),
     landlordController.getLandlordRequests);
+
+router.get(
+    "/rented-properties",
+    authenticateUser(Role.LANDLORD),
+    validateRequest(landlordRentedPropertiesQueryValidation, "query"),
+    landlordController.getRentedProperties,
+);
 
 router.patch(
     "/requests/:id",

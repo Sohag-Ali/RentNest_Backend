@@ -1,7 +1,13 @@
+import { Prisma } from "../../../generated/prisma/client";
+import { PaymentStatus, RentalStatus } from "../../../generated/prisma/enums";
 import { prisma } from "../../lib/prisma";
-import { RentalStatus } from "../../../generated/prisma/enums";
 import { propertyService } from "../property/property.service";
-import { CreateLandlordPropertyInput, UpdateLandlordPropertyInput, UpdateRentalRequestStatusInput } from "./landload.interface";
+import {
+  CreateLandlordPropertyInput,
+  GetLandlordRentedPropertiesQuery,
+  UpdateLandlordPropertyInput,
+  UpdateRentalRequestStatusInput,
+} from "./landload.interface";
 
 const propertySelect = {
   id: true,
@@ -87,6 +93,181 @@ const rentalRequestSelect = {
   },
 } as const;
 
+const rentedPropertySelect = {
+  id: true,
+  title: true,
+  slug: true,
+  mainImage: true,
+  location: true,
+  city: true,
+  state: true,
+  price: true,
+  bedrooms: true,
+  bathrooms: true,
+  areaSqFt: true,
+  category: {
+    select: {
+      id: true,
+      name: true,
+    },
+  },
+} as const;
+
+const rentedRequestSelect = {
+  id: true,
+  status: true,
+  moveInDate: true,
+  createdAt: true,
+  tenant: {
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      avatar: true,
+      phone: true,
+    },
+  },
+  property: {
+    select: rentedPropertySelect,
+  },
+  payment: {
+    select: {
+      id: true,
+      transactionId: true,
+      amount: true,
+      provider: true,
+      status: true,
+      paidAt: true,
+      createdAt: true,
+    },
+  },
+  review: {
+    select: {
+      id: true,
+      rating: true,
+      comment: true,
+      createdAt: true,
+    },
+  },
+} as const;
+
+type RentedPropertiesSummary = {
+  totalRentedProperties: number;
+  totalRevenue: number;
+  totalCompletedPayments: number;
+  averagePropertyPrice: number;
+};
+
+const buildRentalRequestWhere = (landlordId: string, query: GetLandlordRentedPropertiesQuery) => {
+  const where: Prisma.RentalRequestWhereInput = {
+    status: RentalStatus.COMPLETED,
+    payment: {
+      is: {
+        status: PaymentStatus.COMPLETED,
+      },
+    },
+    property: {
+      landlordId,
+    },
+  };
+
+  const andConditions: Prisma.RentalRequestWhereInput[] = [];
+
+  if (query.search) {
+    andConditions.push({
+      OR: [
+        {
+          property: {
+            title: {
+              contains: query.search,
+              mode: "insensitive",
+            },
+          },
+        },
+        {
+          tenant: {
+            name: {
+              contains: query.search,
+              mode: "insensitive",
+            },
+          },
+        },
+      ],
+    });
+  }
+
+  if (query.city) {
+    andConditions.push({
+      property: {
+        city: {
+          contains: query.city,
+          mode: "insensitive",
+        },
+      },
+    });
+  }
+
+  if (query.category) {
+    andConditions.push({
+      property: {
+        category: {
+          name: {
+            equals: query.category,
+            mode: "insensitive",
+          },
+        },
+      },
+    });
+  }
+
+  if (query.paymentStatus) {
+    andConditions.push({
+      payment: {
+        is: {
+          status: query.paymentStatus,
+        },
+      },
+    });
+  }
+
+  if (andConditions.length > 0) {
+    where.AND = andConditions;
+  }
+
+  return where;
+};
+
+const buildRentedPropertiesSummaryWhere = (landlordId: string, query: GetLandlordRentedPropertiesQuery) => {
+  const conditions: Prisma.Sql[] = [
+    Prisma.sql`rr."status" = ${RentalStatus.COMPLETED}`,
+    Prisma.sql`p."status" = ${PaymentStatus.COMPLETED}`,
+    Prisma.sql`prop."landlordId" = ${landlordId}`,
+  ];
+
+  if (query.search) {
+    const searchPattern = `%${query.search}%`;
+    conditions.push(
+      Prisma.sql`(prop."title" ILIKE ${searchPattern} OR tenant."name" ILIKE ${searchPattern})`,
+    );
+  }
+
+  if (query.city) {
+    conditions.push(Prisma.sql`prop."city" ILIKE ${`%${query.city}%`}`);
+  }
+
+  if (query.category) {
+    conditions.push(Prisma.sql`cat."name" ILIKE ${query.category}`);
+  }
+
+  if (query.paymentStatus) {
+    conditions.push(Prisma.sql`p."status" = ${query.paymentStatus}`);
+  }
+
+  return conditions.reduce(
+    (accumulator, condition, index) => (index === 0 ? condition : Prisma.sql`${accumulator} AND ${condition}`),
+  );
+};
+
 const ensureLandlordPropertyExists = async (propertyId: string, landlordId: string) => {
   const property = await prisma.property.findFirst({
     where: {
@@ -168,6 +349,69 @@ const getLandlordRequestsFromDB = async (landlordId: string) => {
   });
 };
 
+const getRentedPropertiesFromDB = async (
+  landlordId: string,
+  query: GetLandlordRentedPropertiesQuery,
+) => {
+  const page = query.page ?? 1;
+  const limit = query.limit ?? 10;
+  const skip = (page - 1) * limit;
+
+  const where = buildRentalRequestWhere(landlordId, query);
+
+  const orderBy =
+    query.sort === "paidDateDesc"
+      ? [{ payment: { paidAt: "desc" as const } }, { createdAt: "desc" as const }]
+      : [{ createdAt: "desc" as const }];
+
+  const rentedPropertiesQuery = prisma.rentalRequest.findMany({
+    where,
+    skip,
+    take: limit,
+    orderBy,
+    select: rentedRequestSelect,
+  });
+
+  const summaryQuery = prisma.$queryRaw<Array<RentedPropertiesSummary>>(
+    Prisma.sql`
+      SELECT
+        COUNT(DISTINCT rr."id")::int AS "totalRentedProperties",
+        COALESCE(SUM(p."amount"), 0)::float8 AS "totalRevenue",
+        COUNT(DISTINCT p."id")::int AS "totalCompletedPayments",
+        COALESCE(AVG(prop."price"), 0)::float8 AS "averagePropertyPrice"
+      FROM "RentalRequest" rr
+      INNER JOIN "Payment" p ON p."rentalRequestId" = rr."id"
+      INNER JOIN "Property" prop ON prop."id" = rr."propertyId"
+      INNER JOIN "User" tenant ON tenant."id" = rr."tenantId"
+      INNER JOIN "Category" cat ON cat."id" = prop."categoryId"
+      WHERE ${buildRentedPropertiesSummaryWhere(landlordId, query)}
+    `,
+  );
+
+  const [data, summaryResult] = await prisma.$transaction([rentedPropertiesQuery, summaryQuery]);
+  const summary = summaryResult[0] ?? {
+    totalRentedProperties: 0,
+    totalRevenue: 0,
+    totalCompletedPayments: 0,
+    averagePropertyPrice: 0,
+  };
+
+  const total = summary.totalRentedProperties;
+  const totalPage = total === 0 ? 0 : Math.ceil(total / limit);
+
+  return {
+    data,
+    meta: {
+      page,
+      limit,
+      total,
+      totalPage,
+    },
+    summary,
+    message: total === 0 ? "No rented properties found" : "Rented properties fetched successfully",
+  };
+};
+
 const updateRentalRequestStatusIntoDB = async (
   landlordId: string,
   requestId: string,
@@ -228,5 +472,6 @@ export const landlordService = {
   updatePropertyIntoDB,
   deletePropertyIntoDB,
   getLandlordRequestsFromDB,
+  getRentedPropertiesFromDB,
   updateRentalRequestStatusIntoDB,
 };
