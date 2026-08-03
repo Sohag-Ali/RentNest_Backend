@@ -16,6 +16,7 @@ const rentalRequestSelect = {
             id: true,
             title: true,
             description: true,
+            mainImage: true,
             location: true,
             price: true,
             isAvailable: true,

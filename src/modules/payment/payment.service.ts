@@ -27,7 +27,11 @@ const paymentHistorySelect = {
                 select: {
                     id: true,
                     title: true,
+                    slug: true,
+                    mainImage: true,
                     location: true,
+                    city: true,
+                    state: true,
                     price: true,
                     landlord: {
                         select: {
