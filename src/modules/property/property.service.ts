@@ -150,6 +150,11 @@ const featuredPropertySelect = {
       isVerified: true,
     },
   },
+  _count: {
+    select: {
+      wishlists: true,
+    },
+  },
 } as const;
 
 const createPropertyInDB = async (landlordId: string, payload: CreatePropertyInput) => {
@@ -367,7 +372,7 @@ const getFeaturedPropertiesFromDB = async () => {
   return featuredProperties.map((property) => ({
     ...property,
     averageRating: property.rating,
-    wishlistCount: 0,
+    wishlistCount: property._count?.wishlists ?? 0,
   }));
 };
 

@@ -45,6 +45,7 @@ model User {
   rentalRequests RentalRequest[]
   reviews        Review[]
   payments       Payment[]
+  wishlists      Wishlist[]
 
   createdAt      DateTime        @default(now())
   updatedAt      DateTime        @updatedAt
