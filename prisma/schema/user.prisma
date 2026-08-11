@@ -4,7 +4,8 @@ model User {
   // Basic Info
   name           String
   email          String          @unique
-  password       String
+  password       String?
+  googleId       String?         @unique
 
   avatar         String?
   phone          String?

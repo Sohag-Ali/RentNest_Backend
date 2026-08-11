@@ -11,3 +11,13 @@ export const loginValidation = z
       .min(1, "Password is required"),
   })
   .strict();
+
+export const googleLoginValidation = z
+  .object({
+    credential: z
+      .string({ error: "Credential must be a string" })
+      .min(1, "Credential is required"),
+  })
+  .strict();
+
+
