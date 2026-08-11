@@ -1,7 +1,8 @@
 import { Prisma } from "../../../generated/prisma/client";
-import { RentalStatus } from "../../../generated/prisma/enums";
+import { NotificationType, RentalStatus } from "../../../generated/prisma/enums";
 import { prisma } from "../../lib/prisma";
 import { AppError } from "../../utils/AppError";
+import { createNotification } from "../notification/notification.service";
 import { ICreateReview, IUpdateReview } from "./review.interface";
 
 const reviewSelect = {
@@ -32,6 +33,7 @@ const reviewSelect = {
             isAvailable: true,
             rating: true,
             reviewCount: true,
+            landlordId: true,
             category: {
                 select: {
                     id: true,
@@ -117,6 +119,17 @@ const createReviewIntoDB = async (tenantId: string, payload: ICreateReview) => {
 
         return createdReview;
     });
+
+    if (review.property?.landlordId) {
+        await createNotification({
+            userId: review.property.landlordId,
+            type: NotificationType.NEW_REVIEW,
+            title: "New Review Received",
+            message: `A tenant posted a ${rating}-star review for your property "${review.property.title || 'Property'}".`,
+            entityId: review.id,
+            entityType: "Review",
+        });
+    }
 
     return review;
 };

@@ -882,14 +882,6 @@ export type PropertyCreateamenitiesInput = {
   set: string[]
 }
 
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
-}
-
-export type BoolFieldUpdateOperationsInput = {
-  set?: boolean
-}
-
 export type PropertyUpdateimagesInput = {
   set?: string[]
   push?: string | string[]

@@ -1,6 +1,7 @@
 import { Prisma } from "../../../generated/prisma/client";
-import { PaymentStatus, RentalStatus } from "../../../generated/prisma/enums";
+import { NotificationType, PaymentStatus, RentalStatus } from "../../../generated/prisma/enums";
 import { prisma } from "../../lib/prisma";
+import { createNotification } from "../notification/notification.service";
 import { propertyService } from "../property/property.service";
 import {
   CreateLandlordPropertyInput,
@@ -317,6 +318,16 @@ const updatePropertyIntoDB = async (
     },
     select: propertySelect,
   });
+
+  await createNotification({
+    userId: landlordId,
+    type: NotificationType.PROPERTY_UPDATED,
+    title: "Property Updated",
+    message: `Your property "${result.title}" has been updated successfully.`,
+    entityId: propertyId,
+    entityType: "Property",
+  });
+
   return result;
 };
 
@@ -463,6 +474,38 @@ const updateRentalRequestStatusIntoDB = async (
 
     return updatedRequest;
   });
+
+  const propertyTitle = updatedRentalRequest.property?.title || "property";
+  const tenantId = updatedRentalRequest.tenantId;
+
+  if (payload.status === RentalStatus.APPROVED) {
+    await createNotification({
+      userId: tenantId,
+      type: NotificationType.RENTAL_APPROVED,
+      title: "Rental Request Approved",
+      message: `Your rental request for "${propertyTitle}" has been approved.`,
+      entityId: requestId,
+      entityType: "RentalRequest",
+    });
+  } else if (payload.status === RentalStatus.REJECTED) {
+    await createNotification({
+      userId: tenantId,
+      type: NotificationType.RENTAL_REJECTED,
+      title: "Rental Request Rejected",
+      message: `Your rental request for "${propertyTitle}" has been rejected.`,
+      entityId: requestId,
+      entityType: "RentalRequest",
+    });
+  } else if (payload.status === RentalStatus.CANCELLED) {
+    await createNotification({
+      userId: tenantId,
+      type: NotificationType.RENTAL_CANCELLED,
+      title: "Rental Request Cancelled",
+      message: `The rental request for "${propertyTitle}" was cancelled.`,
+      entityId: requestId,
+      entityType: "RentalRequest",
+    });
+  }
 
   return updatedRentalRequest;
 };

@@ -1,7 +1,8 @@
 import Stripe from "stripe";
-import { PaymentProvider, PaymentStatus, RentalStatus } from "../../../generated/prisma/enums";
+import { NotificationType, PaymentProvider, PaymentStatus, RentalStatus } from "../../../generated/prisma/enums";
 import { prisma } from "../../lib/prisma";
 import { AppError } from "../../utils/AppError";
+import { createNotification } from "../notification/notification.service";
 
 /**
  * Handles processing of Stripe checkout.session.completed webhook events.
@@ -46,6 +47,17 @@ const processCheckoutSessionCompleted = async (session: Stripe.Checkout.Session)
 
     if (existingPayment) {
         console.log(`[WEBHOOK] existing payment found (ID: ${existingPayment.id}). Skipping creation.`);
+        
+        // Ensure notification is present even if retried
+        await createNotification({
+            userId: tenantId,
+            type: NotificationType.PAYMENT_SUCCESS,
+            title: "Payment Successful",
+            message: `Your payment of ৳${existingPayment.amount} for your rental request was successfully processed.`,
+            entityId: existingPayment.id,
+            entityType: "Payment",
+        });
+
         return existingPayment;
     }
 
@@ -117,6 +129,16 @@ const processCheckoutSessionCompleted = async (session: Stripe.Checkout.Session)
         console.log(`[WEBHOOK] rental status updated to COMPLETED (id: ${rentalRequestId})`);
 
         return createdPayment;
+    });
+
+    // Create PAYMENT_SUCCESS notification
+    await createNotification({
+        userId: tenantId,
+        type: NotificationType.PAYMENT_SUCCESS,
+        title: "Payment Successful",
+        message: `Your payment of ৳${payment.amount} for your rental request was successfully processed.`,
+        entityId: payment.id,
+        entityType: "Payment",
     });
 
     return payment;

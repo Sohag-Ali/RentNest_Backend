@@ -28,6 +28,11 @@ export type PropertyOverview = Prisma.PropertyOverviewModel
  */
 export type Category = Prisma.CategoryModel
 /**
+ * Model Notification
+ * 
+ */
+export type Notification = Prisma.NotificationModel
+/**
  * Model Payment
  * 
  */

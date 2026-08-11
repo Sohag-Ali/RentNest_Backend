@@ -468,10 +468,6 @@ export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
 }
 
-export type DateTimeFieldUpdateOperationsInput = {
-  set?: Date | string
-}
-
 export type PaymentCreateNestedOneWithoutRentalRequestInput = {
   create?: Prisma.XOR<Prisma.PaymentCreateWithoutRentalRequestInput, Prisma.PaymentUncheckedCreateWithoutRentalRequestInput>
   connectOrCreate?: Prisma.PaymentCreateOrConnectWithoutRentalRequestInput

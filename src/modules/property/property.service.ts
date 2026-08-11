@@ -1,6 +1,8 @@
 import { Prisma } from "../../../generated/prisma/client";
+import { NotificationType } from "../../../generated/prisma/enums";
 import { prisma } from "../../lib/prisma";
 import { AppError } from "../../utils/AppError";
+import { createNotification } from "../notification/notification.service";
 import { CreatePropertyInput, PropertyListQuery } from "./property.interface";
 
 const propertyListSelect = {
@@ -240,6 +242,15 @@ const createPropertyInDB = async (landlordId: string, payload: CreatePropertyInp
         : {}),
     },
     select: propertyDetailsSelect,
+  });
+
+  await createNotification({
+    userId: landlordId,
+    type: NotificationType.NEW_PROPERTY,
+    title: "Property Created",
+    message: `Your property "${createdProperty.title}" has been successfully created.`,
+    entityId: createdProperty.id,
+    entityType: "Property",
   });
 
   return createdProperty;

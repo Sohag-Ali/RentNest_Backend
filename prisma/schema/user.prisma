@@ -47,6 +47,7 @@ model User {
   reviews        Review[]
   payments       Payment[]
   wishlists      Wishlist[]
+  notifications  Notification[]
 
   createdAt      DateTime        @default(now())
   updatedAt      DateTime        @updatedAt

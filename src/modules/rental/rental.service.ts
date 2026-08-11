@@ -1,6 +1,7 @@
-import { RentalStatus } from "../../../generated/prisma/enums";
+import { NotificationType, RentalStatus } from "../../../generated/prisma/enums";
 import { prisma } from "../../lib/prisma";
 import { AppError } from "../../utils/AppError";
+import { createNotification } from "../notification/notification.service";
 import { CreateRentalRequestInput } from "./rental.interface";
 
 
@@ -121,6 +122,16 @@ const createRentalRequestIntoDB = async (tenantId: string, payload: CreateRental
         },
         select: rentalRequestSelect,
     });
+
+    await createNotification({
+        userId: property.landlordId,
+        type: NotificationType.RENTAL_REQUEST,
+        title: "New Rental Request",
+        message: `You received a new rental request for "${rentalRequest.property.title || 'your property'}".`,
+        entityId: rentalRequest.id,
+        entityType: "RentalRequest",
+    });
+
     return rentalRequest;
 };
 

@@ -11,6 +11,7 @@ import { adminRouter } from "./modules/admin/admin.route";
 import { paymentRouter } from "./modules/payment/payment.route";
 import { reviewRouter } from "./modules/review/review.route"; 
 import { wishlistRouter } from "./modules/wishlist/wishlist.route";
+import { notificationRouter } from "./modules/notification/notification.route";
 import { notFound } from "./middlewares/notFound";
 import { globalErrorHandler } from "./middlewares/globalErrorHandler";
 import { categoriesRouter } from "./modules/category/category.route";
@@ -64,6 +65,8 @@ app.use("/api/payments", paymentRouter);
 app.use("/api/reviews", reviewRouter);
 
 app.use("/api/wishlist", wishlistRouter);
+
+app.use("/api/notifications", notificationRouter);
 
 app.use(notFound);
 app.use(globalErrorHandler);

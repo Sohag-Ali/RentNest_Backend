@@ -65,3 +65,19 @@ export const PaymentStatus = {
 } as const
 
 export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
+
+
+export const NotificationType = {
+  RENTAL_REQUEST: 'RENTAL_REQUEST',
+  RENTAL_APPROVED: 'RENTAL_APPROVED',
+  RENTAL_REJECTED: 'RENTAL_REJECTED',
+  RENTAL_CANCELLED: 'RENTAL_CANCELLED',
+  PAYMENT_SUCCESS: 'PAYMENT_SUCCESS',
+  PAYMENT_FAILED: 'PAYMENT_FAILED',
+  NEW_REVIEW: 'NEW_REVIEW',
+  NEW_PROPERTY: 'NEW_PROPERTY',
+  PROPERTY_UPDATED: 'PROPERTY_UPDATED',
+  SYSTEM: 'SYSTEM'
+} as const
+
+export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType]
