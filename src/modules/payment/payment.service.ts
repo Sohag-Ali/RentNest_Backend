@@ -190,8 +190,48 @@ const getPaymentByIdFromDB = async (tenantId: string, paymentId: string) => {
     return payment;
 };
 
+const getPaymentByRentalRequestIdFromDB = async (tenantId: string, rentalRequestId: string) => {
+    const rentalRequest = await prisma.rentalRequest.findFirst({
+        where: {
+            id: rentalRequestId,
+            tenantId,
+        },
+        select: {
+            id: true,
+        },
+    });
+
+    if (!rentalRequest) {
+        throw new AppError(404, "Rental request not found");
+    }
+
+    const payment = await prisma.payment.findUnique({
+        where: {
+            rentalRequestId,
+        },
+        select: {
+            id: true,
+            rentalRequestId: true,
+            transactionId: true,
+            amount: true,
+            provider: true,
+            status: true,
+            paidAt: true,
+            createdAt: true,
+        },
+    });
+
+    if (!payment) {
+        return null;
+    }
+
+    return payment;
+};
+
 export const paymentService = {
     createPaymentIntentIntoDB,
     getMyPaymentsFromDB,
     getPaymentByIdFromDB,
+    getPaymentByRentalRequestIdFromDB,
 };
+

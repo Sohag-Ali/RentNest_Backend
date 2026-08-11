@@ -18,6 +18,7 @@ router.get("/cancel", paymentController.paymentCancel);
 router.use(authenticateUser(Role.TENANT));
 
 router.post("/create", validateRequest(createPaymentValidation), paymentController.createPayment);
+router.get("/rental/:rentalRequestId", paymentController.getPaymentByRentalRequestId);
 router.get("/", paymentController.getMyPayments);
 router.get("/:id", validateRequest(paymentResourceIdValidation, "params"), paymentController.getPaymentById);
 

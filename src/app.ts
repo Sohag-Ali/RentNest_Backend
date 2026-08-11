@@ -15,6 +15,7 @@ import { notFound } from "./middlewares/notFound";
 import { globalErrorHandler } from "./middlewares/globalErrorHandler";
 import { categoriesRouter } from "./modules/category/category.route";
 import { citiesRouter } from "./modules/city/city.route";
+import { webhookController } from "./modules/webhook/webhook.controller";
 import { webhookRouter } from "./modules/webhook/webhook.route";
 
 const app: Application = express();
@@ -25,7 +26,12 @@ app.use(cors({
 }));
 
 // Stripe webhook requires raw body for signature verification - MUST be mounted BEFORE express.json()
-app.use("/api/webhooks", express.raw({ type: "*/*" }), webhookRouter);
+app.post(
+    "/api/payments/webhook",
+    express.raw({ type: "application/json" }),
+    webhookController.handleStripeWebhook
+);
+// app.use("/api/webhooks", express.raw({ type: "*/*" }), webhookRouter);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

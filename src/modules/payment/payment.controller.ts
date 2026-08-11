@@ -80,6 +80,47 @@ const getPaymentById = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
+const getPaymentByRentalRequestId = catchAsync(async (req: Request, res: Response) => {
+    const currentUser = req.user;
+    const rentalRequestId = req.params.rentalRequestId;
+
+    if (!currentUser) {
+        return res.status(httpStatus.UNAUTHORIZED).json({
+            success: false,
+            statusCode: httpStatus.UNAUTHORIZED,
+            message: "Unauthorized access",
+            error: "Authenticated user information is missing",
+        });
+    }
+
+    if (typeof rentalRequestId !== "string") {
+        return res.status(httpStatus.BAD_REQUEST).json({
+            success: false,
+            statusCode: httpStatus.BAD_REQUEST,
+            message: "Invalid request",
+            error: "Rental request ID is required",
+        });
+    }
+
+    const payment = await paymentService.getPaymentByRentalRequestIdFromDB(currentUser.id, rentalRequestId);
+
+    if (payment) {
+        sendResponse(res, {
+            success: true,
+            statusCode: httpStatus.OK,
+            message: "Payment verified successfully",
+            data: payment,
+        });
+    } else {
+        sendResponse(res, {
+            success: true,
+            statusCode: httpStatus.OK,
+            message: "Payment is still being processed",
+            data: null,
+        });
+    }
+});
+
 const paymentSuccess = (req: Request, res: Response) => {
     const sessionId = req.query.session_id;
     sendResponse(res, {
@@ -103,6 +144,8 @@ export const paymentController = {
     createPayment,
     getMyPayments,
     getPaymentById,
+    getPaymentByRentalRequestId,
     paymentSuccess,
     paymentCancel,
 };
+
