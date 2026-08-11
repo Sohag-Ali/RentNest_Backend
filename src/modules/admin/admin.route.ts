@@ -4,6 +4,7 @@ import { authenticateUser } from "../../middlewares/authenticateUser";
 import { validateRequest } from "../../middlewares/validateRequest";
 import { adminController } from "./admin.controller";
 import {
+    adminAnalyticsQueryValidation,
     adminPropertiesQueryValidation,
     adminRentalsQueryValidation,
     adminResourceIdValidation,
@@ -15,9 +16,17 @@ const router = Router();
 
 // router.use(authenticateUser(Role.ADMIN));
 
+router.get(
+    "/analytics",
+    authenticateUser(Role.ADMIN),
+    validateRequest(adminAnalyticsQueryValidation, "query"),
+    adminController.getAnalytics,
+);
+
 router.get("/users",
     authenticateUser(Role.ADMIN),
      validateRequest(adminUsersQueryValidation, "query"), adminController.getUsers);
+
 
 router.patch(
     "/users/:id",

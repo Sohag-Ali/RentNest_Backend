@@ -26,3 +26,7 @@ export type AdminRentalsQuery = {
 export type AdminUpdateUserStatusInput = {
     status: UserStatus;
 };
+
+export type AdminAnalyticsQuery = {
+    period?: "7d" | "30d" | "90d" | "all";
+};

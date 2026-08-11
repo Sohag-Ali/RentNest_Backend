@@ -53,3 +53,10 @@ export const adminRentalsQueryValidation = z
         ]).optional(),
     })
     .strict();
+
+export const adminAnalyticsQueryValidation = z
+    .object({
+        period: z.enum(["7d", "30d", "90d", "all"]).default("30d"),
+    })
+    .strict();
+
