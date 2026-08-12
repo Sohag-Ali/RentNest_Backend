@@ -320,7 +320,7 @@ STRIPE_SECRET_KEY="sk_test_your_stripe_secret_key"
 
 # Server
 PORT=5000
-CLIENT_URL="http://localhost:3000"
+CLIENT_URL="https://rent-nest-gules-two.vercel.app"
 ```
 
 ---

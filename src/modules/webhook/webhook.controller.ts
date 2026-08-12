@@ -36,7 +36,7 @@ const handleStripeWebhook = async (req: Request, res: Response) => {
     try {
         event = stripe.webhooks.constructEvent(
             req.body,
-            signature as string,
+            req.headers["stripe-signature"]!,
             config.stripe_webhook_secret
         );
         console.log("[WEBHOOK] signature verified");
