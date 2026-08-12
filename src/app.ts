@@ -17,7 +17,6 @@ import { globalErrorHandler } from "./middlewares/globalErrorHandler";
 import { categoriesRouter } from "./modules/category/category.route";
 import { citiesRouter } from "./modules/city/city.route";
 import { webhookController } from "./modules/webhook/webhook.controller";
-import { webhookRouter } from "./modules/webhook/webhook.route";
 
 const app: Application = express();
 
@@ -32,7 +31,6 @@ app.post(
     express.raw({ type: "application/json" }),
     webhookController.handleStripeWebhook
 );
-// app.use("/api/webhooks", express.raw({ type: "*/*" }), webhookRouter);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
