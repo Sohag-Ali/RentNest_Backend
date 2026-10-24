@@ -4,9 +4,9 @@
   "description": "> \ud83d\udca1 Check your Student ID by clicking your **profile image** on the [Programming Hero Website](https://web.programming-hero.com/profile).",
   "main": "index.js",
   "scripts": {
-    "dev": "node api.js && tsx watch src/server.ts",
-    "build": "node api.js && tsc",
-    "start": "node api.js && tsx src/server.ts",
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
+    "start": "tsx src/server.ts",
     "postinstall": "prisma generate"
   },
   "keywords": [],
